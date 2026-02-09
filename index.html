@@ -1,9 +1,125 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="az">
 <head>
-  <title>My Site</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Hikmet Blog - təhlükəsizlik, CTF və praktiki qeydlər." />
+  <title>Hikmet Blog</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <h1>Salam dünya!</h1>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">H</div>
+        <div>
+          <div class="brand-title">Hikmet Blog</div>
+          <div class="brand-sub">CTF • Pentest • Notes</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="themeBtn" class="btn ghost" type="button" aria-label="Toggle theme">
+          🌙
+        </button>
+        <a class="btn" href="#new">+ New Post</a>
+      </div>
+    </div>
+
+    <div class="wrap toolbar">
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Axtar... (məs: XSS, recon, SSRF)" autocomplete="off" />
+        <span class="kbd">/</span>
+      </div>
+
+      <div class="filters">
+        <button class="chip active" data-tag="all" type="button">All</button>
+        <button class="chip" data-tag="ctf" type="button">CTF</button>
+        <button class="chip" data-tag="pentest" type="button">Pentest</button>
+        <button class="chip" data-tag="web" type="button">Web</button>
+        <button class="chip" data-tag="notes" type="button">Notes</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap main">
+    <section class="grid">
+      <aside class="sidebar">
+        <div class="card">
+          <h3>About</h3>
+          <p>
+            Burada pentest, bug bounty və CTF qeydlərimi paylaşacam. Yazılar qısa, praktik və “copy-run” formatında olacaq.
+          </p>
+          <div class="meta">
+            <span class="dot"></span>
+            <span id="postCount">0 post</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Quick Links</h3>
+          <ul class="links">
+            <li><a href="#posts">Posts</a></li>
+            <li><a href="#new">Write</a></li>
+            <li><a href="#" id="exportBtn">Export posts (JSON)</a></li>
+            <li><a href="#" id="resetBtn" class="danger">Reset demo data</a></li>
+          </ul>
+          <p class="tiny">
+            Qeyd: “New Post” localStorage-da saxlanır (server tələb etmir).
+          </p>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div id="posts" class="posts"></div>
+
+        <section id="new" class="composer card">
+          <h2>New Post</h2>
+          <form id="postForm" class="form">
+            <div class="row">
+              <label>
+                Title
+                <input id="titleInput" required maxlength="120" placeholder="Məs: Subdomain recon checklist" />
+              </label>
+
+              <label>
+                Tag
+                <select id="tagInput" required>
+                  <option value="ctf">CTF</option>
+                  <option value="pentest">Pentest</option>
+                  <option value="web">Web</option>
+                  <option value="notes">Notes</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Content (Markdown-like)
+              <textarea id="bodyInput" required rows="8" placeholder="Məs: 
+# Başlıq
+- addım 1
+- addım 2
+
+```bash
+dig +short example.com
+```"></textarea>
+            </label>
+
+            <div class="row actions">
+              <button class="btn" type="submit">Publish</button>
+              <button id="clearBtn" class="btn ghost" type="button">Clear</button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <div>© <span id="year"></span> Hikmet • Built with vanilla HTML/CSS/JS</div>
+    <div class="tiny">Tip: Search focus üçün klaviaturada <b>/</b></div>
+  </footer>
+
+  <script src="./app.js"></script>
 </body>
 </html>
