@@ -1,211 +1,134 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="az">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Hikmet Blog - CTF, Pentest və Notes." />
-  <title>Hikmet Blog</title>
-  <link rel="stylesheet" href="./style.css" />
+  <title>Portfolio — Hikmət</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap header-row">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">H</div>
-        <div>
-          <div class="brand-title">Hikmet Blog</div>
-          <div class="brand-sub">CTF • Pentest • Notes</div>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <button id="themeBtn" class="btn ghost" type="button" aria-label="Toggle theme">🌙</button>
-        <button id="adminBtn" class="btn" type="button">🔒 Admin</button>
-      </div>
-    </div>
-
-    <div class="wrap toolbar">
-      <div class="tabs">
-        <button class="tab active" data-tab="posts" type="button">Blog</button>
-        <button class="tab" data-tab="about" type="button">About</button>
-      </div>
-
-      <div class="search">
-        <input id="searchInput" type="search" placeholder="Axtar... (məs: XSS, recon, SSRF)" autocomplete="off" />
-        <span class="kbd">/</span>
-      </div>
-
-      <div class="filters" id="tagFilters">
-        <button class="chip active" data-tag="all" type="button">All</button>
-        <button class="chip" data-tag="ctf" type="button">CTF</button>
-        <button class="chip" data-tag="pentest" type="button">Pentest</button>
-        <button class="chip" data-tag="web" type="button">Web</button>
-        <button class="chip" data-tag="notes" type="button">Notes</button>
-      </div>
-    </div>
+  <header class="topbar">
+    <a class="logo" href="#home">H.</a>
+    <nav class="nav" id="nav">
+      <a href="#home">Ana səhifə</a>
+      <a href="#about">Haqqımda</a>
+      <a href="#projects">Layihələr</a>
+      <a href="#contact">Əlaqə</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menyunu aç/bağla">☰</button>
   </header>
 
-  <main class="wrap main">
-    <section class="grid">
-      <aside class="sidebar">
-        <div class="card">
-          <h3>About</h3>
-          <p id="aboutBio">
-            Burada pentest, bug bounty və CTF qeydlərimi paylaşacam. Yazılar qısa, praktik və “copy-run” formatında olacaq.
-          </p>
-          <div class="meta">
-            <span class="dot"></span>
-            <span id="postCount">0 post</span>
-          </div>
-          <div class="tiny" id="adminStateHint"></div>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero__content">
+        <p class="kicker">Web • Frontend • UI</p>
+        <h1 id="typewriter">Salam, mən Hikmət.</h1>
+        <p class="sub">
+          Mövzunu de — onu bu şablona uyğun “tam” dizayna çevirim.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#projects">Layihələrə bax</a>
+          <a class="btn btn--ghost" href="#about">Haqqımda</a>
         </div>
+      </div>
+      <div class="hero__card">
+        <div class="stat">
+          <span class="stat__num" data-count="12">0</span>
+          <span class="stat__label">Mini layihə</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="3">0</span>
+          <span class="stat__label">İl təcrübə</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="24">0</span>
+          <span class="stat__label">Skill</span>
+        </div>
+      </div>
+    </section>
 
-        <div class="card">
-          <h3>Quick Links</h3>
-          <ul class="links">
-            <li><a href="#posts" class="navLink" data-tab="posts">Posts</a></li>
-            <li><a href="#about" class="navLink" data-tab="about">About</a></li>
-            <li><a href="#" id="exportBtn">Export posts (JSON)</a></li>
-            <li><a href="#" id="resetBtn" class="danger">Reset demo data</a></li>
+    <section id="about" class="section">
+      <h2>Haqqımda</h2>
+      <div class="about">
+        <div class="about__box">
+          <h3>Qısa bio</h3>
+          <p>
+            Burada özün haqqında məlumat yazılacaq: nə ilə məşğulsan, nəyi sevirsən,
+            fokus sahən, hədəfin və s.
+          </p>
+          <ul class="chips">
+            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>UI</li>
           </ul>
-          <p class="tiny">
-            Qeyd: Postlar localStorage-da saxlanır (server tələb etmir). “Admin” yalnız UI-lockdur.
-          </p>
         </div>
-      </aside>
 
-      <section class="content">
+        <div class="about__box">
+          <h3>Skill bar</h3>
+          <div class="bar"><span style="width:85%">HTML 85%</span></div>
+          <div class="bar"><span style="width:75%">CSS 75%</span></div>
+          <div class="bar"><span style="width:70%">JS 70%</span></div>
+        </div>
+      </div>
+    </section>
 
-        <!-- POSTS TAB -->
-        <section id="tab-posts" class="tab-panel active">
-          <div id="posts" class="posts"></div>
+    <section id="projects" class="section">
+      <h2>Layihələr</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Layihə #1</h3>
+          <p>Qısa təsvir: nə edir, hansı texnologiya.</p>
+          <button class="link" data-modal="p1">Detallı</button>
+        </article>
 
-          <section id="new" class="composer card">
-            <h2>New Post</h2>
+        <article class="card">
+          <h3>Layihə #2</h3>
+          <p>Qısa təsvir: nə edir, hansı texnologiya.</p>
+          <button class="link" data-modal="p2">Detallı</button>
+        </article>
 
-            <!-- Admin Gate -->
-            <div id="adminGate" class="admin-gate">
-              <div class="row">
-                <label>
-                  Admin Passphrase
-                  <input id="adminPass" type="password" placeholder="Sənə aid passphrase" />
-                </label>
-                <button id="unlockBtn" class="btn" type="button">Unlock</button>
-              </div>
-              <p class="tiny">
-                Unlock olduqda browser-də uzun random session cookie yazılır.
-              </p>
-            </div>
+        <article class="card">
+          <h3>Layihə #3</h3>
+          <p>Qısa təsvir: nə edir, hansı texnologiya.</p>
+          <button class="link" data-modal="p3">Detallı</button>
+        </article>
+      </div>
+    </section>
 
-            <form id="postForm" class="form">
-              <div class="row">
-                <label>
-                  Title
-                  <input id="titleInput" required maxlength="120" placeholder="Məs: Subdomain recon checklist" />
-                </label>
-
-                <label>
-                  Tag
-                  <select id="tagInput" required>
-                    <option value="ctf">CTF</option>
-                    <option value="pentest">Pentest</option>
-                    <option value="web">Web</option>
-                    <option value="notes">Notes</option>
-                  </select>
-                </label>
-              </div>
-
-              <label>
-                Content (Markdown-like)
-                <textarea id="bodyInput" required rows="8" placeholder="Məs:
-# Başlıq
-- addım 1
-- addım 2
-
-```bash
-dig +short example.com
-```"></textarea>
-              </label>
-
-              <div class="row actions">
-                <button class="btn" type="submit">Publish</button>
-                <button id="clearBtn" class="btn ghost" type="button">Clear</button>
-              </div>
-            </form>
-
-            <div class="row actions" style="margin-top:10px;">
-              <button id="logoutBtn" class="btn ghost" type="button">Logout Admin</button>
-            </div>
-          </section>
-        </section>
-
-        <!-- ABOUT TAB -->
-        <section id="tab-about" class="tab-panel">
-          <div class="card">
-            <h2>About Me</h2>
-
-            <div id="aboutView" class="about-view">
-              <p id="aboutText"></p>
-
-              <div class="about-links" id="aboutLinks"></div>
-
-              <div class="tiny" style="margin-top:12px;">
-                Not: Bu məlumatlar statik saytda localStorage-da saxlanır. Global görünməsi üçün repo-ya commit etmək lazımdır.
-              </div>
-            </div>
-
-            <!-- Admin-only editor -->
-            <div id="aboutEditor" class="about-editor">
-              <h3>Edit About (Admin)</h3>
-
-              <label>
-                Bio
-                <textarea id="aboutInput" rows="5" placeholder="Özün haqqında qısa bio..."></textarea>
-              </label>
-
-              <div class="row">
-                <label>
-                  LinkedIn URL
-                  <input id="linkedinInput" placeholder="https://www.linkedin.com/in/username" />
-                </label>
-                <label>
-                  TryHackMe URL
-                  <input id="thmInput" placeholder="https://tryhackme.com/p/username" />
-                </label>
-              </div>
-
-              <div class="row">
-                <label>
-                  GitHub URL
-                  <input id="githubInput" placeholder="https://github.com/username" />
-                </label>
-                <label>
-                  Website / Portfolio
-                  <input id="siteInput" placeholder="https://example.com" />
-                </label>
-              </div>
-
-              <div class="row actions">
-                <button id="saveAboutBtn" class="btn" type="button">Save About</button>
-                <button id="resetAboutBtn" class="btn ghost" type="button">Reset About</button>
-              </div>
-
-              <p class="tiny">
-                Bu editor yalnız admin unlock olduqda görünür.
-              </p>
-            </div>
-          </div>
-        </section>
-
-      </section>
+    <section id="contact" class="section">
+      <h2>Əlaqə</h2>
+      <form class="form" id="contactForm">
+        <label>
+          Ad
+          <input name="name" placeholder="Adın" required />
+        </label>
+        <label>
+          Email
+          <input name="email" type="email" placeholder="email@..." required />
+        </label>
+        <label>
+          Mesaj
+          <textarea name="message" rows="5" placeholder="Mesajın..." required></textarea>
+        </label>
+        <button class="btn" type="submit">Göndər</button>
+        <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
+      </form>
     </section>
   </main>
 
-  <footer class="wrap footer">
-    <div>© <span id="year"></span> Hikmet • Built with vanilla HTML/CSS/JS</div>
-    <div class="tiny">Tip: Search focus üçün klaviaturada <b>/</b></div>
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Detallar</h3>
+      <p id="modalBody"></p>
+      <button class="btn btn--ghost" data-close="1">Bağla</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <small>© <span id="year"></span> Hikmət • Built with HTML/CSS/JS</small>
   </footer>
 
-  <script src="./app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
