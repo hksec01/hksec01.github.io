@@ -1,520 +1,221 @@
-/* =========================
-   Helpers / Compatibility
-========================= */
-function uid() {
-  // long-ish random token
-  const rand = () => Math.random().toString(16).slice(2).padEnd(16, "0");
-  return (
-    "sess-" +
-    Date.now().toString(16) + "-" +
-    rand() + rand() + "-" +
-    rand() + rand()
-  );
+/* style.css */
+:root{
+  --bg:#0b1020;
+  --panel:#121a33;
+  --text:#e9ecff;
+  --muted:#b8c0ff;
+  --accent:#7c5cff;
+  --accent2:#2dd4bf;
+  --border:rgba(255,255,255,.08);
+  --shadow: 0 20px 60px rgba(0,0,0,.35);
 }
 
-const $ = (q) => document.querySelector(q);
-const $$ = (q) => Array.from(document.querySelectorAll(q));
-
-/* =========================
-   Storage Keys
-========================= */
-const STORAGE_KEY = "hikmet_blog_posts_v2";
-const THEME_KEY = "hikmet_blog_theme";
-const ADMIN_COOKIE = "hk_admin_session";
-const ADMIN_LS = "hk_admin_session_shadow";
-const ABOUT_KEY = "hikmet_blog_about_v1";
-
-/* =========================
-   Admin Passphrase (UI Lock)
-   NOTE: Not real security (static site)
-========================= */
-const ADMIN_PASSPHRASE = "HKSEC-2026";
-
-/* =========================
-   Cookie helpers
-========================= */
-function setCookie(name, value, maxAgeSeconds = 60 * 60 * 12) {
-  // GitHub Pages bəzən HTTP olur -> Secure attr vermirik
-  // SameSite=Lax basic safety
-  document.cookie =
-    `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ` +
-    `Max-Age=${maxAgeSeconds}; Path=/; SameSite=Lax`;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,.18), transparent 60%),
+              radial-gradient(900px 500px at 90% 20%, rgba(45,212,191,.12), transparent 55%),
+              var(--bg);
+  color:var(--text);
 }
 
-function getCookie(name) {
-  const target = encodeURIComponent(name) + "=";
-  const parts = document.cookie.split(";").map(s => s.trim());
-  for (const p of parts) {
-    if (p.startsWith(target)) return decodeURIComponent(p.slice(target.length));
+.topbar{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 18px; border-bottom:1px solid var(--border);
+  backdrop-filter: blur(10px);
+  background: rgba(11,16,32,.65);
+}
+
+.logo{
+  width:40px;height:40px;display:grid;place-items:center;
+  border:1px solid var(--border); border-radius:12px;
+  color:var(--text); text-decoration:none; font-weight:800;
+  box-shadow: var(--shadow);
+}
+
+.nav{display:flex; gap:14px; align-items:center}
+.nav a{
+  color:var(--muted); text-decoration:none; font-weight:600;
+  padding:8px 10px; border-radius:10px;
+}
+.nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+
+.burger{
+  display:none;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  border-radius:10px;
+  padding:8px 10px;
+}
+
+main{max-width:1050px; margin:0 auto; padding:20px}
+
+.hero{
+  display:grid;
+  grid-template-columns: 1.4fr .9fr;
+  gap:18px;
+  padding:28px 0 10px;
+}
+
+.hero__content{
+  border:1px solid var(--border);
+  background:rgba(18,26,51,.5);
+  border-radius:20px;
+  padding:22px;
+  box-shadow: var(--shadow);
+}
+
+.kicker{
+  margin:0 0 10px;
+  color:var(--accent2);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-size:12px;
+}
+
+h1{margin:0 0 10px; font-size:40px; line-height:1.1}
+.sub{color:var(--muted); margin:0 0 16px}
+
+.cta{display:flex; gap:10px; flex-wrap:wrap}
+.btn{
+  background: linear-gradient(135deg, var(--accent), #9b7bff);
+  color:white; border:none; padding:10px 14px; border-radius:12px;
+  font-weight:700; text-decoration:none; display:inline-block;
+  box-shadow: 0 12px 30px rgba(124,92,255,.25);
+  cursor:pointer;
+}
+.btn--ghost{
+  background: transparent;
+  border:1px solid var(--border);
+  box-shadow:none;
+}
+
+.hero__card{
+  border:1px solid var(--border);
+  background:rgba(18,26,51,.5);
+  border-radius:20px;
+  padding:18px;
+  box-shadow: var(--shadow);
+  display:grid; gap:12px; align-content:start;
+}
+
+.stat{
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+}
+.stat__num{font-size:28px; font-weight:900; display:block}
+.stat__label{color:var(--muted); font-weight:600}
+
+.section{padding:26px 0}
+.section h2{margin:0 0 14px; font-size:26px}
+
+.about{
+  display:grid; grid-template-columns: 1.1fr .9fr; gap:14px;
+}
+.about__box{
+  border:1px solid var(--border);
+  background:rgba(18,26,51,.5);
+  border-radius:18px;
+  padding:16px;
+}
+
+.chips{list-style:none; padding:0; margin:12px 0 0; display:flex; gap:8px; flex-wrap:wrap}
+.chips li{
+  padding:6px 10px; border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border);
+  color:var(--muted); font-weight:700; font-size:13px;
+}
+
+.bar{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  overflow:hidden;
+  margin:10px 0;
+}
+.bar span{
+  display:block;
+  padding:8px 10px;
+  background: linear-gradient(90deg, rgba(124,92,255,.9), rgba(45,212,191,.75));
+  font-weight:800;
+}
+
+.grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+.card{
+  border:1px solid var(--border);
+  background:rgba(18,26,51,.5);
+  border-radius:18px;
+  padding:16px;
+  box-shadow: var(--shadow);
+}
+.card p{color:var(--muted)}
+.link{
+  background:none; border:none; padding:0;
+  color:var(--accent2); font-weight:800; cursor:pointer;
+}
+
+.form{
+  border:1px solid var(--border);
+  background:rgba(18,26,51,.5);
+  border-radius:18px;
+  padding:16px;
+  max-width:520px;
+}
+label{display:block; margin:10px 0; font-weight:700}
+input, textarea{
+  width:100%;
+  margin-top:6px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  outline:none;
+}
+input:focus, textarea:focus{border-color: rgba(124,92,255,.6)}
+.form__note{color:var(--muted); margin:10px 0 0}
+
+.footer{
+  padding:24px 20px;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:var(--muted);
+}
+
+.modal{position:fixed; inset:0; display:none}
+.modal.is-open{display:block}
+.modal__backdrop{position:absolute; inset:0; background:rgba(0,0,0,.55)}
+.modal__panel{
+  position:relative;
+  max-width:520px;
+  margin:10vh auto;
+  background:rgba(18,26,51,.98);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 860px){
+  .hero{grid-template-columns:1fr}
+  .about{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .burger{display:block}
+  .nav{
+    display:none;
+    position:absolute; right:12px; top:62px;
+    flex-direction:column; gap:6px;
+    background:rgba(11,16,32,.92);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:10px;
+    width:200px;
   }
-  return null;
+  .nav.is-open{display:flex}
 }
-
-function deleteCookie(name) {
-  document.cookie = `${encodeURIComponent(name)}=; Max-Age=0; Path=/; SameSite=Lax`;
-}
-
-/* =========================
-   Admin session logic
-   (cookie + localStorage match)
-========================= */
-function isAdmin() {
-  const c = getCookie(ADMIN_COOKIE);
-  const s = localStorage.getItem(ADMIN_LS);
-  return !!c && !!s && c === s;
-}
-
-function setAdminMode(unlocked) {
-  const root = document.documentElement;
-  root.classList.toggle("admin-unlocked", unlocked);
-  root.classList.toggle("admin-locked", !unlocked);
-
-  const hint = $("#adminStateHint");
-  if (hint) hint.textContent = unlocked ? "Admin: unlocked (session active)" : "Admin: locked";
-
-  const adminBtn = $("#adminBtn");
-  if (adminBtn) adminBtn.textContent = unlocked ? "🔓 Admin" : "🔒 Admin";
-
-  // editor visibility
-  $("#aboutEditor")?.classList.toggle("hidden", !unlocked);
-}
-
-function unlockAdmin(pass) {
-  if (pass !== ADMIN_PASSPHRASE) return false;
-
-  const token = uid(); // long random session token
-  setCookie(ADMIN_COOKIE, token, 60 * 60 * 12); // 12h
-  localStorage.setItem(ADMIN_LS, token);
-  setAdminMode(true);
-  return true;
-}
-
-function logoutAdmin() {
-  deleteCookie(ADMIN_COOKIE);
-  localStorage.removeItem(ADMIN_LS);
-  setAdminMode(false);
-}
-
-/* =========================
-   Blog posts (local)
-========================= */
-const seedPosts = [
-  {
-    id: uid(),
-    title: "Welcome",
-    tag: "notes",
-    date: new Date().toISOString(),
-    body:
-      "Bu blog statikdir (GitHub Pages). Postlar localStorage-da saxlanır.\n\n" +
-      "Admin unlock: yalnız UI-lock, real auth deyil.\n"
-  }
-];
-
-function loadPosts() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(seedPosts));
-    return [...seedPosts];
-  }
-  try {
-    const data = JSON.parse(raw);
-    return Array.isArray(data) ? data : [...seedPosts];
-  } catch {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(seedPosts));
-    return [...seedPosts];
-  }
-}
-
-function savePosts(posts) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-}
-
-function fmtDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit" });
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-/* minimal markdown-like renderer */
-function renderBody(text) {
-  const lines = String(text).replaceAll("\r\n", "\n").split("\n");
-  let html = "";
-  let inCode = false;
-  let codeBuf = [];
-
-  const flushCode = () => {
-    html += `<pre><code>${escapeHtml(codeBuf.join("\n"))}</code></pre>`;
-    codeBuf = [];
-  };
-
-  for (let i = 0; i < lines.length; i++) {
-    const ln = lines[i];
-
-    if (ln.trim().startsWith("```")) {
-      if (!inCode) { inCode = true; continue; }
-      inCode = false; flushCode(); continue;
-    }
-
-    if (inCode) { codeBuf.push(ln); continue; }
-
-    if (ln.startsWith("# ")) { html += `<h3>${escapeHtml(ln.slice(2))}</h3>`; continue; }
-    if (ln.startsWith("## ")) { html += `<h4>${escapeHtml(ln.slice(3))}</h4>`; continue; }
-
-    if (ln.trim().startsWith("- ")) {
-      const items = [];
-      let j = i;
-      while (j < lines.length && lines[j].trim().startsWith("- ")) {
-        items.push(`<li>${escapeHtml(lines[j].trim().slice(2))}</li>`);
-        j++;
-      }
-      html += `<ul>${items.join("")}</ul>`;
-      i = j - 1;
-      continue;
-    }
-
-    const t = ln.trim();
-    if (t) html += `<p>${escapeHtml(t)}</p>`;
-  }
-
-  if (inCode && codeBuf.length) flushCode();
-  return html;
-}
-
-/* =========================
-   About (local)
-========================= */
-const defaultAbout = {
-  bio: "Mən Hikmətəm. Pentest/bug bounty/CTF istiqamətində qeydlər paylaşacam.",
-  links: {
-    linkedin: "",
-    tryhackme: "",
-    github: "",
-    site: ""
-  }
-};
-
-function loadAbout() {
-  const raw = localStorage.getItem(ABOUT_KEY);
-  if (!raw) {
-    localStorage.setItem(ABOUT_KEY, JSON.stringify(defaultAbout));
-    return { ...defaultAbout };
-  }
-  try {
-    const data = JSON.parse(raw);
-    return {
-      bio: data?.bio ?? defaultAbout.bio,
-      links: { ...defaultAbout.links, ...(data?.links || {}) }
-    };
-  } catch {
-    localStorage.setItem(ABOUT_KEY, JSON.stringify(defaultAbout));
-    return { ...defaultAbout };
-  }
-}
-
-function saveAbout(about) {
-  localStorage.setItem(ABOUT_KEY, JSON.stringify(about));
-}
-
-function renderAbout() {
-  const about = loadAbout();
-
-  $("#aboutText").textContent = about.bio;
-  $("#aboutBio").textContent = about.bio;
-
-  const linksWrap = $("#aboutLinks");
-  linksWrap.innerHTML = "";
-
-  const makePill = (label, url) => {
-    if (!url) return null;
-    const a = document.createElement("a");
-    a.className = "link-pill";
-    a.href = url;
-    a.target = "_blank";
-    a.rel = "noreferrer noopener";
-    a.innerHTML = `${escapeHtml(label)} <span>${escapeHtml(url)}</span>`;
-    return a;
-  };
-
-  const pills = [
-    makePill("LinkedIn", about.links.linkedin),
-    makePill("TryHackMe", about.links.tryhackme),
-    makePill("GitHub", about.links.github),
-    makePill("Website", about.links.site),
-  ].filter(Boolean);
-
-  if (pills.length === 0) {
-    const p = document.createElement("p");
-    p.className = "tiny";
-    p.textContent = "Linklər hələ əlavə edilməyib.";
-    linksWrap.appendChild(p);
-  } else {
-    pills.forEach(p => linksWrap.appendChild(p));
-  }
-
-  // fill editor fields
-  $("#aboutInput").value = about.bio;
-  $("#linkedinInput").value = about.links.linkedin;
-  $("#thmInput").value = about.links.tryhackme;
-  $("#githubInput").value = about.links.github;
-  $("#siteInput").value = about.links.site;
-}
-
-/* =========================
-   UI state
-========================= */
-let posts = loadPosts().sort((a,b) => new Date(b.date) - new Date(a.date));
-let activeTag = "all";
-let query = "";
-
-/* =========================
-   Tabs
-========================= */
-function setTab(tab) {
-  // tabs
-  $$(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
-
-  // panels
-  $("#tab-posts").classList.toggle("active", tab === "posts");
-  $("#tab-about").classList.toggle("active", tab === "about");
-
-  // toolbar items visibility
-  $("#searchInput").closest(".search").style.display = tab === "posts" ? "flex" : "none";
-  $("#tagFilters").style.display = tab === "posts" ? "flex" : "none";
-
-  // hash
-  history.replaceState(null, "", tab === "about" ? "#about" : "#posts");
-}
-
-/* =========================
-   Render posts
-========================= */
-function renderPosts() {
-  const container = $("#posts");
-  container.innerHTML = "";
-
-  const filtered = posts.filter(p => {
-    const tagOk = activeTag === "all" ? true : p.tag === activeTag;
-    const q = query.trim().toLowerCase();
-    const qOk = !q ? true : (p.title.toLowerCase().includes(q) || p.body.toLowerCase().includes(q));
-    return tagOk && qOk;
-  });
-
-  $("#postCount").textContent = `${filtered.length} post`;
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="card">
-        <h3>No results</h3>
-        <p class="tiny">Axtarış və ya tag filter nəticə qaytarmadı.</p>
-      </div>`;
-    return;
-  }
-
-  for (const p of filtered) {
-    const el = document.createElement("article");
-    el.className = "post";
-    el.innerHTML = `
-      <div class="post-head">
-        <div>
-          <h2 class="post-title">${escapeHtml(p.title)}</h2>
-        </div>
-        <span class="badge">${escapeHtml(p.tag)}</span>
-      </div>
-      <div class="post-meta">
-        <span>📅 ${fmtDate(p.date)}</span>
-        <span>🆔 <span style="font-family:var(--mono)">${escapeHtml(p.id.slice(0,8))}</span></span>
-      </div>
-      <div class="post-body">${renderBody(p.body)}</div>
-    `;
-    container.appendChild(el);
-  }
-}
-
-/* =========================
-   Theme
-========================= */
-function applyTheme(theme) {
-  if (theme === "light") document.documentElement.setAttribute("data-theme", "light");
-  else document.documentElement.removeAttribute("data-theme");
-  $("#themeBtn").textContent = theme === "light" ? "☀️" : "🌙";
-  localStorage.setItem(THEME_KEY, theme);
-}
-function toggleTheme() {
-  const current = localStorage.getItem(THEME_KEY) || "dark";
-  applyTheme(current === "dark" ? "light" : "dark");
-}
-
-/* =========================
-   Init + Events
-========================= */
-function setActiveChip(tag) {
-  activeTag = tag;
-  $$(".chip").forEach(c => c.classList.toggle("active", c.dataset.tag === tag));
-  renderPosts();
-}
-
-function initEvents() {
-  $("#themeBtn").addEventListener("click", toggleTheme);
-
-  // Tabs
-  $$(".tab").forEach(btn => btn.addEventListener("click", () => setTab(btn.dataset.tab)));
-  $$(".navLink").forEach(a => a.addEventListener("click", (e) => {
-    e.preventDefault();
-    setTab(a.dataset.tab);
-  }));
-
-  // Search
-  $("#searchInput").addEventListener("input", (e) => {
-    query = e.target.value;
-    renderPosts();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA") {
-      if ($("#tab-posts").classList.contains("active")) {
-        e.preventDefault();
-        $("#searchInput").focus();
-      }
-    }
-  });
-
-  // Filters
-  $$(".chip").forEach(chip => chip.addEventListener("click", () => setActiveChip(chip.dataset.tag)));
-
-  // Admin button
-  $("#adminBtn").addEventListener("click", () => {
-    if (isAdmin()) {
-      // already admin -> logout
-      logoutAdmin();
-      return;
-    }
-    setTab("posts");
-    $("#adminPass").focus();
-  });
-
-  // Unlock
-  $("#unlockBtn").addEventListener("click", () => {
-    const pass = $("#adminPass").value || "";
-    if (unlockAdmin(pass)) {
-      $("#adminPass").value = "";
-      alert("Admin unlocked ✅ (session cookie yazıldı)");
-    } else {
-      alert("Yanlış passphrase ❌");
-    }
-  });
-
-  // Logout
-  $("#logoutBtn").addEventListener("click", () => {
-    logoutAdmin();
-    alert("Admin logout ✅");
-  });
-
-  // New Post
-  $("#postForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    if (!isAdmin()) {
-      alert("Admin locked. Post paylaşmaq üçün unlock et.");
-      return;
-    }
-
-    const title = $("#titleInput").value.trim();
-    const tag = $("#tagInput").value;
-    const body = $("#bodyInput").value.trim();
-    if (!title || !body) return;
-
-    const post = { id: uid(), title, tag, date: new Date().toISOString(), body };
-    posts.unshift(post);
-    savePosts(posts);
-
-    $("#titleInput").value = "";
-    $("#bodyInput").value = "";
-    $("#tagInput").value = "ctf";
-
-    setTab("posts");
-    renderPosts();
-  });
-
-  $("#clearBtn").addEventListener("click", () => {
-    $("#titleInput").value = "";
-    $("#bodyInput").value = "";
-    $("#titleInput").focus();
-  });
-
-  // Export / Reset
-  $("#exportBtn").addEventListener("click", (e) => {
-    e.preventDefault();
-    const blob = new Blob([JSON.stringify(posts, null, 2)], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "posts.json";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  });
-
-  $("#resetBtn").addEventListener("click", (e) => {
-    e.preventDefault();
-    localStorage.removeItem(STORAGE_KEY);
-    posts = loadPosts().sort((a,b) => new Date(b.date) - new Date(a.date));
-    renderPosts();
-  });
-
-  // About save/reset (admin-only)
-  $("#saveAboutBtn").addEventListener("click", () => {
-    if (!isAdmin()) {
-      alert("Admin locked. About dəyişmək üçün unlock et.");
-      return;
-    }
-    const about = {
-      bio: $("#aboutInput").value.trim() || defaultAbout.bio,
-      links: {
-        linkedin: $("#linkedinInput").value.trim(),
-        tryhackme: $("#thmInput").value.trim(),
-        github: $("#githubInput").value.trim(),
-        site: $("#siteInput").value.trim()
-      }
-    };
-    saveAbout(about);
-    renderAbout();
-    alert("About saved ✅");
-  });
-
-  $("#resetAboutBtn").addEventListener("click", () => {
-    if (!isAdmin()) {
-      alert("Admin locked.");
-      return;
-    }
-    localStorage.removeItem(ABOUT_KEY);
-    renderAbout();
-    alert("About reset ✅");
-  });
-}
-
-function init() {
-  $("#year").textContent = String(new Date().getFullYear());
-  applyTheme(localStorage.getItem(THEME_KEY) || "dark");
-
-  // Admin initial state
-  setAdminMode(isAdmin());
-
-  // Initial tab from hash
-  const h = (location.hash || "").replace("#", "");
-  setTab(h === "about" ? "about" : "posts");
-
-  // Render
-  renderPosts();
-  renderAbout();
-
-  // Events
-  initEvents();
-}
-
-document.addEventListener("DOMContentLoaded", init);
