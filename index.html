@@ -4,111 +4,190 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio — Hikmət</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Portfolio — Hikmət Kövsərov</title>
+  <meta name="description" content="Hikmət Kövsərov — Penetration Tester. Web pentesting, DevSecOps, SOC log analysis, OSINT, fuzzing." />
+  <link rel="stylesheet" href="./style.css?v=1" />
 </head>
+
 <body>
   <header class="topbar">
-    <a class="logo" href="#home">H.</a>
+    <a class="logo" href="#home" aria-label="Ana səhifə">HK</a>
+
     <nav class="nav" id="nav">
       <a href="#home">Ana səhifə</a>
       <a href="#about">Haqqımda</a>
-      <a href="#projects">Layihələr</a>
+      <a href="#skills">Bacarıqlar</a>
+      <a href="#blog">Blog</a>
       <a href="#contact">Əlaqə</a>
     </nav>
-    <button class="burger" id="burger" aria-label="Menyunu aç/bağla">☰</button>
+
+    <button class="burger" id="burger" aria-label="Menyunu aç/bağla" aria-expanded="false">☰</button>
   </header>
 
   <main>
+    <!-- HERO -->
     <section id="home" class="hero">
       <div class="hero__content">
-        <p class="kicker">Web • Frontend • UI</p>
-        <h1 id="typewriter">Salam, mən Hikmət.</h1>
+        <p class="kicker">Penetration Testing • Red Team • DevSecOps</p>
+        <h1 id="typewriter">Salam, mən Hikmət Kövsərov.</h1>
         <p class="sub">
-          Mövzunu de — onu bu şablona uyğun “tam” dizayna çevirim.
+          Web tətbiq təhlükəsizliyi, exploit, DevSecOps pipeline-ları və log analizi üzrə praktiki təcrübə.
         </p>
+
         <div class="cta">
-          <a class="btn" href="#projects">Layihələrə bax</a>
-          <a class="btn btn--ghost" href="#about">Haqqımda</a>
+          <a class="btn" href="#blog">Blog yazılarım</a>
+          <a class="btn btn--ghost" href="#contact">Əlaqə</a>
+        </div>
+
+        <div class="quick">
+          <a class="pill" href="https://medium.com/@hikmetkovsarov" target="_blank" rel="noreferrer">Medium</a>
+          <a class="pill" href="https://linkedin.com/in/hikmet-kovserov" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="pill" href="mailto:hikmetkovsarov@gmail.com">Email</a>
         </div>
       </div>
+
       <div class="hero__card">
         <div class="stat">
-          <span class="stat__num" data-count="12">0</span>
-          <span class="stat__label">Mini layihə</span>
+          <span class="stat__num" data-count="2">0</span>
+          <span class="stat__label">Pentest internship</span>
         </div>
         <div class="stat">
-          <span class="stat__num" data-count="3">0</span>
-          <span class="stat__label">İl təcrübə</span>
+          <span class="stat__num" data-count="10">0</span>
+          <span class="stat__label">Security tools</span>
         </div>
         <div class="stat">
-          <span class="stat__num" data-count="24">0</span>
-          <span class="stat__label">Skill</span>
+          <span class="stat__num" data-count="5">0</span>
+          <span class="stat__label">Blog paylaşımı</span>
+        </div>
+
+        <div class="mini-terminal" aria-label="Terminal preview">
+          <div class="mini-terminal__top">
+            <span></span><span></span><span></span>
+          </div>
+          <pre class="mini-terminal__body"><code>$ whoami
+hikmetkovsarov
+$ focus
+web-pentest • devsecops • soc
+$ status
+learning → shipping → repeating</code></pre>
         </div>
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about" class="section">
       <h2>Haqqımda</h2>
+
       <div class="about">
         <div class="about__box">
-          <h3>Qısa bio</h3>
+          <h3>Penetration Tester</h3>
+
           <p>
-            Burada özün haqqında məlumat yazılacaq: nə ilə məşğulsan, nəyi sevirsən,
-            fokus sahən, hədəfin və s.
+            Mən Hikmət Kövsərov — Bakı şəhərində fəaliyyət göstərən Penetration Testerəm.
+            Şəbəkə və kibertəhlükəsizlik sahəsində praktiki təcrübəyə sahibəm.
+            Web tətbiqlərdə zəifliklərin aşkarlanması, exploit edilməsi və müdafiə
+            mexanizmlərinin qurulması üzərində işləyirəm.
           </p>
+
+          <p>
+            OWASP Top 10 zəiflikləri, DevSecOps inteqrasiyası, log analizi, OSINT və fuzzing üzrə işləyərək
+            real sistemlərdə təhlükəsizlik testləri aparmışam. Məqsədim daim inkişaf edib
+            daha güclü Red Team / AppSec mütəxəssisi olmaqdır.
+          </p>
+
           <ul class="chips">
-            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>UI</li>
+            <li>Web Pentesting</li>
+            <li>OWASP Top 10</li>
+            <li>DevSecOps</li>
+            <li>ELK / Log Analysis</li>
+            <li>OSINT</li>
+            <li>Linux</li>
           </ul>
         </div>
 
         <div class="about__box">
-          <h3>Skill bar</h3>
-          <div class="bar"><span style="width:85%">HTML 85%</span></div>
-          <div class="bar"><span style="width:75%">CSS 75%</span></div>
-          <div class="bar"><span style="width:70%">JS 70%</span></div>
+          <h3>Qısa info</h3>
+          <dl class="info">
+            <div><dt>Location</dt><dd>Baku, Azerbaijan</dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:hikmetkovsarov@gmail.com">hikmetkovsarov@gmail.com</a></dd></div>
+            <div><dt>LinkedIn</dt><dd><a target="_blank" rel="noreferrer" href="https://linkedin.com/in/hikmet-kovserov">hikmet-kovserov</a></dd></div>
+            <div><dt>Medium</dt><dd><a target="_blank" rel="noreferrer" href="https://medium.com/@hikmetkovsarov">@hikmetkovsarov</a></dd></div>
+          </dl>
+
+          <div class="badgegrid">
+            <span class="badge">eWPTXv3</span>
+            <span class="badge">CWSE</span>
+            <span class="badge">CCNA</span>
+            <span class="badge">Linux Essentials</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section">
-      <h2>Layihələr</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Layihə #1</h3>
-          <p>Qısa təsvir: nə edir, hansı texnologiya.</p>
-          <button class="link" data-modal="p1">Detallı</button>
-        </article>
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <h2>Bacarıqlar</h2>
 
-        <article class="card">
-          <h3>Layihə #2</h3>
-          <p>Qısa təsvir: nə edir, hansı texnologiya.</p>
-          <button class="link" data-modal="p2">Detallı</button>
-        </article>
+      <div class="skills">
+        <div class="skill">
+          <div class="skill__top"><span>Web Pentesting</span><span class="pct">90%</span></div>
+          <div class="bar"><span data-w="90"></span></div>
+        </div>
 
-        <article class="card">
-          <h3>Layihə #3</h3>
-          <p>Qısa təsvir: nə edir, hansı texnologiya.</p>
-          <button class="link" data-modal="p3">Detallı</button>
-        </article>
+        <div class="skill">
+          <div class="skill__top"><span>Recon / OSINT</span><span class="pct">82%</span></div>
+          <div class="bar"><span data-w="82"></span></div>
+        </div>
+
+        <div class="skill">
+          <div class="skill__top"><span>DevSecOps (SAST/SCA/DAST)</span><span class="pct">75%</span></div>
+          <div class="bar"><span data-w="75"></span></div>
+        </div>
+
+        <div class="skill">
+          <div class="skill__top"><span>Network Security</span><span class="pct">78%</span></div>
+          <div class="bar"><span data-w="78"></span></div>
+        </div>
+
+        <div class="skill">
+          <div class="skill__top"><span>Linux</span><span class="pct">80%</span></div>
+          <div class="bar"><span data-w="80"></span></div>
+        </div>
       </div>
     </section>
 
+    <!-- BLOG -->
+    <section id="blog" class="section">
+      <div class="section__head">
+        <h2>Blog</h2>
+        <p class="muted">Medium və LinkedIn paylaşımlarım (linklər birbaşa açılır).</p>
+      </div>
+
+      <div class="grid" id="blogGrid">
+        <!-- JS will render cards here -->
+      </div>
+    </section>
+
+    <!-- CONTACT -->
     <section id="contact" class="section">
       <h2>Əlaqə</h2>
+
       <form class="form" id="contactForm">
         <label>
           Ad
           <input name="name" placeholder="Adın" required />
         </label>
+
         <label>
           Email
           <input name="email" type="email" placeholder="email@..." required />
         </label>
+
         <label>
           Mesaj
           <textarea name="message" rows="5" placeholder="Mesajın..." required></textarea>
         </label>
+
         <button class="btn" type="submit">Göndər</button>
         <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
       </form>
@@ -119,16 +198,19 @@
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal__backdrop" data-close="1"></div>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <h3 id="modalTitle">Detallar</h3>
-      <p id="modalBody"></p>
-      <button class="btn btn--ghost" data-close="1">Bağla</button>
+      <h3 id="modalTitle">Post</h3>
+      <p id="modalBody" class="muted"></p>
+      <div class="modal__actions">
+        <a class="btn" id="modalOpen" target="_blank" rel="noreferrer">Aç →</a>
+        <button class="btn btn--ghost" data-close="1">Bağla</button>
+      </div>
     </div>
   </div>
 
   <footer class="footer">
-    <small>© <span id="year"></span> Hikmət • Built with HTML/CSS/JS</small>
+    <small>© <span id="year"></span> Hikmət Kövsərov • HTML/CSS/JS</small>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="./app.js?v=1"></script>
 </body>
 </html>
