@@ -154,7 +154,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-
 // ---------- Contact (demo) ----------
 $("#contactForm").addEventListener("submit", (e) => {
   e.preventDefault();
