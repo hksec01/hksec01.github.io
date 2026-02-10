@@ -154,31 +154,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// ---------- Small CV picker (local preview) ----------
-const cvFile = $("#cvFile");
-const cvName = $("#cvName");
-const cvOpen = $("#cvOpen");
-
-let cvObjectUrl = null;
-
-cvFile?.addEventListener("change", () => {
-  const f = cvFile.files?.[0];
-  if (!f) {
-    cvName.textContent = "Seçilən fayl yoxdur.";
-    cvOpen.style.display = "none";
-    if (cvObjectUrl) URL.revokeObjectURL(cvObjectUrl);
-    cvObjectUrl = null;
-    return;
-  }
-
-  cvName.textContent = f.name;
-  if (cvObjectUrl) URL.revokeObjectURL(cvObjectUrl);
-  cvObjectUrl = URL.createObjectURL(f);
-
-  cvOpen.href = cvObjectUrl;
-  cvOpen.download = f.name; // download click üçün
-  cvOpen.style.display = "inline-block";
-});
 
 // ---------- Contact (demo) ----------
 $("#contactForm").addEventListener("submit", (e) => {
