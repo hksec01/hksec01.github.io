@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Portfolio — Hikmət Kövsərov</title>
   <meta name="description" content="Hikmət Kövsərov — Penetration Tester. Web pentesting, DevSecOps, log analysis, OSINT." />
-  <link rel="stylesheet" href="./style.css?v=3" />
+  <link rel="stylesheet" href="./style.css?v=4" />
 </head>
 
 <body>
@@ -16,7 +16,6 @@
     <nav class="nav" id="nav">
       <a href="#home">Ana səhifə</a>
       <a href="#about">Haqqımda</a>
-      <a href="#skills">Bacarıqlar</a>
       <a href="#blog">Blog</a>
       <a href="#contact">Əlaqə</a>
     </nav>
@@ -107,6 +106,7 @@ learning → shipping → repeating</code></pre>
 
         <div class="about__box">
           <h3>Qısa info</h3>
+
           <dl class="info">
             <div><dt>Location</dt><dd>Baku, Azerbaijan</dd></div>
             <div><dt>Email</dt><dd><a href="mailto:hikmetkovsarov@gmail.com">hikmetkovsarov@gmail.com</a></dd></div>
@@ -120,38 +120,33 @@ learning → shipping → repeating</code></pre>
             <span class="badge">CCNA</span>
             <span class="badge">Linux Essentials</span>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="section">
-      <h2>Bacarıqlar</h2>
+          <!-- Small CV card -->
+          <div class="cvcard">
+            <div class="cvcard__top">
+              <div>
+                <h4>CV</h4>
+                <p class="muted">PDF fayl (kiçik blok).</p>
+              </div>
+              <a class="btn btn--ghost btn--sm" href="./K.Hikmet.pdf" download>CV-ni yüklə</a>
+            </div>
 
-      <div class="skills">
-        <div class="skill">
-          <div class="skill__top"><span>Web Pentesting</span><span class="pct">90%</span></div>
-          <div class="bar"><span data-w="90"></span></div>
-        </div>
+            <div class="cvcard__row">
+              <label class="cvlabel" for="cvFile">
+                CV seç (local)
+              </label>
+              <input id="cvFile" class="cvinput" type="file" accept="application/pdf" />
+            </div>
 
-        <div class="skill">
-          <div class="skill__top"><span>Recon / OSINT</span><span class="pct">82%</span></div>
-          <div class="bar"><span data-w="82"></span></div>
-        </div>
+            <div class="cvcard__row">
+              <span class="muted" id="cvName">Seçilən fayl yoxdur.</span>
+              <a class="openlink" id="cvOpen" target="_blank" rel="noreferrer" style="display:none;">Aç →</a>
+            </div>
 
-        <div class="skill">
-          <div class="skill__top"><span>DevSecOps (SAST/SCA/DAST)</span><span class="pct">75%</span></div>
-          <div class="bar"><span data-w="75"></span></div>
-        </div>
-
-        <div class="skill">
-          <div class="skill__top"><span>Network Security</span><span class="pct">78%</span></div>
-          <div class="bar"><span data-w="78"></span></div>
-        </div>
-
-        <div class="skill">
-          <div class="skill__top"><span>Linux</span><span class="pct">80%</span></div>
-          <div class="bar"><span data-w="80"></span></div>
+            <p class="cvhint muted">
+              Qeyd: Bu “upload” statik saytda serverə göndərmir, sadəcə brauzerdə açmaq üçündür.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -209,6 +204,6 @@ learning → shipping → repeating</code></pre>
     <small>© <span id="year"></span> Hikmət Kövsərov • HTML/CSS/JS</small>
   </footer>
 
-  <script src="./app.js?v=3"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>
