@@ -73,19 +73,19 @@ bars.forEach((b) => ioBars.observe(b));
 const BLOGS = [
   {
     url: "https://www.linkedin.com/feed/update/urn:li:activity:7369688723002789888/?originTrackingId=h7fGXPSImhacgIYxj73sxQ%3D%3D",
-    title: "LinkedIn Post #1",
+    title: "NotDoor-APT28 Outlook Backdor",
     platform: "LinkedIn",
     desc: "LinkedIn paylaşımı — security mövzulu post.",
   },
   {
     url: "https://www.linkedin.com/feed/update/urn:li:activity:7327527946791890944/?originTrackingId=TYJUzyawEMejNzeg4eqNQA%3D%3D",
-    title: "LinkedIn Post #2",
+    title: "Azure DevOps-da Token Hijacking",
     platform: "LinkedIn",
     desc: "LinkedIn paylaşımı — security mövzulu post.",
   },
   {
     url: "https://www.linkedin.com/feed/update/urn:li:activity:7318543764313006080/?originTrackingId=ekeXtrUbPzRnR0Ov2e0O1w%3D%3D",
-    title: "LinkedIn Post #3",
+    title: "Gamma AI vasitəsi ile yeni formada fişinq hücumu",
     platform: "LinkedIn",
     desc: "LinkedIn paylaşımı — security mövzulu post.",
   },
@@ -103,28 +103,26 @@ const BLOGS = [
   },
 ];
 
-// ---------- Render blog cards ----------
+// ---------- Render blog cards (ONLY ONE TAG: LinkedIn/Medium) ----------
 const blogGrid = $("#blogGrid");
 
-function hostTag(url) {
-  try {
-    const u = new URL(url);
-    return u.hostname.replace("www.", "");
-  } catch {
-    return "link";
-  }
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function makeCard(item, idx) {
   const tag = item.platform;
-  const host = hostTag(item.url);
 
   const el = document.createElement("article");
   el.className = "card";
   el.innerHTML = `
     <div class="meta">
-      <span class="tag">${tag}</span>
-      <span class="tag">${host}</span>
+      <span class="tag">${escapeHtml(tag)}</span>
     </div>
     <h3>${escapeHtml(item.title || `Post #${idx+1}`)}</h3>
     <p>${escapeHtml(item.desc || "Paylaşım linki.")}</p>
@@ -134,15 +132,6 @@ function makeCard(item, idx) {
     </div>
   `;
   return el;
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }
 
 BLOGS.forEach((b, i) => blogGrid.appendChild(makeCard(b, i)));
@@ -174,7 +163,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Esc to close
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modal.classList.contains("is-open")) {
     modal.classList.remove("is-open");
