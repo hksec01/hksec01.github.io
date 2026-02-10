@@ -55,21 +55,7 @@ const ioCount = new IntersectionObserver((entries) => {
 
 counters.forEach((c) => ioCount.observe(c));
 
-// ---------- Skill bar animate on view ----------
-const bars = [...document.querySelectorAll(".bar span[data-w]")];
-const ioBars = new IntersectionObserver((entries) => {
-  entries.forEach((en) => {
-    if (!en.isIntersecting) return;
-    const el = en.target;
-    const w = el.getAttribute("data-w");
-    el.style.width = `${w}%`;
-    ioBars.unobserve(el);
-  });
-}, { threshold: 0.45 });
-
-bars.forEach((b) => ioBars.observe(b));
-
-// ---------- Blog data (YOUR LINKS) ----------
+// ---------- Blog data ----------
 const BLOGS = [
   {
     url: "https://www.linkedin.com/feed/update/urn:li:activity:7369688723002789888/?originTrackingId=h7fGXPSImhacgIYxj73sxQ%3D%3D",
@@ -103,7 +89,7 @@ const BLOGS = [
   },
 ];
 
-// ---------- Render blog cards (ONLY ONE TAG: LinkedIn/Medium) ----------
+// ---------- Render blog cards (ONLY ONE TAG) ----------
 const blogGrid = $("#blogGrid");
 
 function escapeHtml(s) {
@@ -116,13 +102,11 @@ function escapeHtml(s) {
 }
 
 function makeCard(item, idx) {
-  const tag = item.platform;
-
   const el = document.createElement("article");
   el.className = "card";
   el.innerHTML = `
     <div class="meta">
-      <span class="tag">${escapeHtml(tag)}</span>
+      <span class="tag">${escapeHtml(item.platform)}</span>
     </div>
     <h3>${escapeHtml(item.title || `Post #${idx+1}`)}</h3>
     <p>${escapeHtml(item.desc || "Paylaşım linki.")}</p>
@@ -168,6 +152,32 @@ document.addEventListener("keydown", (e) => {
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
   }
+});
+
+// ---------- Small CV picker (local preview) ----------
+const cvFile = $("#cvFile");
+const cvName = $("#cvName");
+const cvOpen = $("#cvOpen");
+
+let cvObjectUrl = null;
+
+cvFile?.addEventListener("change", () => {
+  const f = cvFile.files?.[0];
+  if (!f) {
+    cvName.textContent = "Seçilən fayl yoxdur.";
+    cvOpen.style.display = "none";
+    if (cvObjectUrl) URL.revokeObjectURL(cvObjectUrl);
+    cvObjectUrl = null;
+    return;
+  }
+
+  cvName.textContent = f.name;
+  if (cvObjectUrl) URL.revokeObjectURL(cvObjectUrl);
+  cvObjectUrl = URL.createObjectURL(f);
+
+  cvOpen.href = cvObjectUrl;
+  cvOpen.download = f.name; // download click üçün
+  cvOpen.style.display = "inline-block";
 });
 
 // ---------- Contact (demo) ----------
