@@ -1,12 +1,11 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="az">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hikmət Kövsərov</title>
+  <title>Portfolio — Hikmət Kövsərov</title>
   <meta name="description" content="Hikmət Kövsərov — Penetration Tester. Web pentesting, DevSecOps, log analysis, OSINT." />
-  <link rel="stylesheet" href="./style.css?v=5" />
+  <link rel="stylesheet" href="./style.css?v=6" />
 </head>
 
 <body>
@@ -28,7 +27,7 @@
     <section id="home" class="hero">
       <div class="hero__content">
         <p class="kicker">Penetration Testing • Red Team • DevSecOps</p>
-        <h1 id="typewriter">Hikmət Kövsərov.</h1>
+        <h1 id="typewriter">Salam, mən Hikmət Kövsərov.</h1>
         <p class="sub">
           Web tətbiq təhlükəsizliyi, zəiflik analizi, DevSecOps security pipeline-ları və log analizi üzrə praktiki təcrübə.
         </p>
@@ -129,15 +128,17 @@ learning → shipping → repeating</code></pre>
         <h2>Blog</h2>
         <p class="muted">Medium və LinkedIn paylaşımlarım.</p>
       </div>
-
       <div class="grid" id="blogGrid"></div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- CONTACT (Formspree integrated) -->
     <section id="contact" class="section">
       <h2>Əlaqə</h2>
 
-      <form class="form" id="contactForm">
+      <form class="form"
+            id="contactForm"
+            action="https://formspree.io/f/meelodlg"
+            method="POST">
         <label>
           Ad
           <input name="name" placeholder="Adın" required />
@@ -153,7 +154,13 @@ learning → shipping → repeating</code></pre>
           <textarea name="message" rows="5" placeholder="Mesajın..." required></textarea>
         </label>
 
-        <button class="btn" type="submit">Göndər</button>
+        <!-- Honeypot (spam botlar üçün) -->
+        <label class="hp" aria-hidden="true">
+          Leave this empty
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+        </label>
+
+        <button class="btn" type="submit" id="sendBtn">Göndər</button>
         <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -173,9 +180,9 @@ learning → shipping → repeating</code></pre>
   </div>
 
   <footer class="footer">
-    <small>© <span id="year"></span> Hikmət Kövsərov </small>
+    <small>© <span id="year"></span> Hikmət Kövsərov • HTML/CSS/JS</small>
   </footer>
 
-  <script src="./app.js?v=5"></script>
+  <script src="./app.js?v=6"></script>
 </body>
 </html>
