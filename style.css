@@ -110,13 +110,6 @@ h1{margin:0 0 10px; font-size:40px; line-height:1.1}
   color:var(--text);
 }
 
-.btn--sm{
-  padding:8px 10px;
-  border-radius:10px;
-  font-weight:900;
-  font-size:13px;
-}
-
 .quick{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
 .pill{
   text-decoration:none;
@@ -193,51 +186,6 @@ dd a:hover{text-decoration:underline}
   font-weight:900;
   font-size:12px;
 }
-
-/* ---- Small CV block ---- */
-.cvcard{
-  margin-top:16px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.03);
-  border-radius:16px;
-  padding:12px;
-}
-.cvcard h4{margin:0 0 4px}
-.cvcard p{margin:0}
-.cvcard__top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:10px;
-}
-.cvcard__row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-top:10px;
-}
-.cvlabel{
-  font-weight:900;
-  color:var(--muted);
-  font-size:13px;
-}
-.cvinput{
-  width:180px;
-  max-width:100%;
-  font-size:12px;
-}
-.openlink{
-  text-decoration:none;
-  font-weight:900;
-  color:var(--accent2);
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
-  padding:8px 10px;
-  border-radius:10px;
-}
-.openlink:hover{background:rgba(255,255,255,.06); color:var(--text)}
-.cvhint{margin-top:10px; font-size:12px; line-height:1.4}
 
 /* Blog grid */
 .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
