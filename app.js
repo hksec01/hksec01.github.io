@@ -213,6 +213,12 @@ const BLOGS = [
     platform: "Medium",
     desc: "IoT/OT recon addımları və analiz yanaşması.",
   },
+  {
+  url: "https://medium.com/@hikmetkovsarov/cve-2026-1281-cve-2026-1340-9d59ad066164",
+  title: "CVE-2026-1281 & CVE-2026-1340 (Ivanti EPMM) — RCE",
+  platform: "Medium",
+  desc: "Ivanti Endpoint Manager Mobile (EPMM) üçün kritik code injection → RCE analizi.",
+},
 ];
 
 // ---------- Render blog cards ----------
