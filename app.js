@@ -1,4 +1,3 @@
-// app.js
 const $ = (q) => document.querySelector(q);
 
 // ---------- Mobile nav ----------
@@ -89,7 +88,7 @@ const BLOGS = [
   },
 ];
 
-// ---------- Render blog cards (ONLY ONE TAG) ----------
+// ---------- Render blog cards ----------
 const blogGrid = $("#blogGrid");
 
 function escapeHtml(s) {
@@ -154,8 +153,45 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// ---------- Contact (demo) ----------
-$("#contactForm").addEventListener("submit", (e) => {
+// ---------- Formspree AJAX submit ----------
+const form = $("#contactForm");
+const note = $("#formNote");
+const sendBtn = $("#sendBtn");
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  $("#formNote").textContent = "Mesaj hazırlandı (demo). Real göndərmə üçün backend / Email API lazımdır.";
+
+  // Honeypot doludursa -> bot ola bilər, səssizcə "ok" kimi göstər.
+  const gotcha = form.querySelector('input[name="_gotcha"]')?.value?.trim();
+  if (gotcha) {
+    note.textContent = "Göndərildi ✅";
+    form.reset();
+    return;
+  }
+
+  sendBtn.disabled = true;
+  sendBtn.textContent = "Göndərilir...";
+  note.textContent = "";
+
+  const fd = new FormData(form);
+
+  try {
+    const r = await fetch(form.action, {
+      method: "POST",
+      body: fd,
+      headers: { "Accept": "application/json" },
+    });
+
+    if (r.ok) {
+      note.textContent = "Mesaj göndərildi ✅";
+      form.reset();
+    } else {
+      note.textContent = "Xəta baş verdi ❌ (Formspree limit/verifikasiya ola bilər)";
+    }
+  } catch (err) {
+    note.textContent = "Network xətası ❌";
+  } finally {
+    sendBtn.disabled = false;
+    sendBtn.textContent = "Göndər";
+  }
 });
