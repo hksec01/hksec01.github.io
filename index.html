@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,212 +22,64 @@
     --glow-c:   0 0 20px rgba(0,212,255,.35);
     --glow-r:   0 0 20px rgba(255,51,102,.35);
   }
-
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'JetBrains Mono',monospace;
-    min-height:100vh;
-    overflow-x:hidden;
-  }
-
-  /* ── SCANLINE OVERLAY ── */
-  body::before{
-    content:'';
-    position:fixed;inset:0;
-    background:repeating-linear-gradient(
-      0deg,transparent,transparent 2px,
-      rgba(0,255,136,.018) 2px,rgba(0,255,136,.018) 4px
-    );
-    pointer-events:none;z-index:9999;
-  }
-
-  /* ── HEADER ── */
-  header{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:18px 32px;
-    border-bottom:1px solid var(--border);
-    background:linear-gradient(90deg,#060810 0%,#0a1020 100%);
-    position:sticky;top:0;z-index:100;
-    backdrop-filter:blur(10px);
-  }
-  .logo{
-    font-family:'Orbitron',sans-serif;
-    font-size:1.2rem;font-weight:900;
-    color:var(--green);
-    text-shadow:var(--glow-g);
-    letter-spacing:3px;
-  }
+  body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,136,.018) 2px,rgba(0,255,136,.018) 4px);pointer-events:none;z-index:9999;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,#060810 0%,#0a1020 100%);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+  .logo{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:900;color:var(--green);text-shadow:var(--glow-g);letter-spacing:3px;}
   .logo span{color:var(--cyan);}
   .status-bar{display:flex;gap:20px;align-items:center;font-size:.72rem;}
-  .status-dot{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--green);
-    box-shadow:0 0 8px var(--green);
-    animation:pulse 2s infinite;
-  }
-  .badge{
-    padding:3px 10px;border-radius:3px;
-    font-size:.65rem;font-weight:700;letter-spacing:1px;
-    border:1px solid;
-  }
+  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;}
+  .badge{padding:3px 10px;border-radius:3px;font-size:.65rem;font-weight:700;letter-spacing:1px;border:1px solid;}
   .badge-red{color:var(--red);border-color:var(--red);background:rgba(255,51,102,.08);}
   .badge-yellow{color:var(--yellow);border-color:var(--yellow);background:rgba(255,215,0,.08);}
-
-  /* ── LAYOUT ── */
   .wrapper{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 60px);}
-
-  /* ── SIDEBAR ── */
-  aside{
-    background:var(--panel);
-    border-right:1px solid var(--border);
-    padding:24px 0;
-    position:sticky;top:60px;height:calc(100vh - 60px);
-    overflow-y:auto;
-  }
+  aside{background:var(--panel);border-right:1px solid var(--border);padding:24px 0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;}
   .nav-section{margin-bottom:28px;}
-  .nav-label{
-    font-size:.6rem;letter-spacing:3px;text-transform:uppercase;
-    color:var(--muted);padding:0 20px 10px;
-  }
-  .nav-item{
-    display:flex;align-items:center;gap:10px;
-    padding:10px 20px;cursor:pointer;
-    font-size:.78rem;color:var(--muted);
-    border-left:2px solid transparent;
-    transition:all .2s;
-  }
-  .nav-item:hover,.nav-item.active{
-    color:var(--cyan);
-    border-left-color:var(--cyan);
-    background:rgba(0,212,255,.06);
-  }
+  .nav-label{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding:0 20px 10px;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;font-size:.78rem;color:var(--muted);border-left:2px solid transparent;transition:all .2s;}
+  .nav-item:hover,.nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(0,212,255,.06);}
   .nav-item.active{color:var(--green);border-left-color:var(--green);}
   .nav-icon{font-size:.9rem;width:16px;text-align:center;}
-  .nav-count{
-    margin-left:auto;font-size:.6rem;
-    color:var(--muted);background:var(--border);
-    padding:1px 6px;border-radius:10px;
-  }
-
-  /* ── MAIN ── */
+  .nav-count{margin-left:auto;font-size:.6rem;color:var(--muted);background:var(--border);padding:1px 6px;border-radius:10px;}
   main{padding:32px;overflow-y:auto;}
-
-  /* ── SECTION TITLE ── */
   .section-header{margin-bottom:28px;}
-  .section-header h1{
-    font-family:'Orbitron',sans-serif;
-    font-size:1.5rem;font-weight:700;
-    color:var(--green);text-shadow:var(--glow-g);
-    margin-bottom:6px;
-  }
+  .section-header h1{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:var(--green);text-shadow:var(--glow-g);margin-bottom:6px;}
   .section-header p{color:var(--muted);font-size:.78rem;line-height:1.6;}
-
-  /* ── CARDS GRID ── */
   .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px;}
-  .card{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:6px;padding:20px;
-    cursor:pointer;
-    transition:all .25s;
-    position:relative;overflow:hidden;
-  }
-  .card::before{
-    content:'';
-    position:absolute;top:0;left:0;right:0;height:2px;
-    background:linear-gradient(90deg,transparent,var(--accent,var(--green)),transparent);
-  }
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:20px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent,var(--green)),transparent);}
   .card:hover{border-color:var(--accent,var(--green));transform:translateY(-2px);box-shadow:var(--glow-g);}
   .card.red{--accent:var(--red);} .card.red:hover{box-shadow:var(--glow-r);}
   .card.cyan{--accent:var(--cyan);} .card.cyan:hover{box-shadow:var(--glow-c);}
-  .card.yellow{--accent:var(--yellow);}
-  .card.purple{--accent:var(--purple);}
-  .card.orange{--accent:var(--orange);}
+  .card.yellow{--accent:var(--yellow);} .card.purple{--accent:var(--purple);} .card.orange{--accent:var(--orange);}
   .card-icon{font-size:1.8rem;margin-bottom:12px;}
   .card-title{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:6px;}
   .card-desc{font-size:.72rem;color:var(--muted);line-height:1.6;}
-  .card-tag{
-    display:inline-block;margin-top:12px;
-    font-size:.6rem;letter-spacing:1px;padding:2px 8px;
-    border-radius:3px;border:1px solid;
-  }
-  .tag-red{color:var(--red);border-color:var(--red);}
-  .tag-green{color:var(--green);border-color:var(--green);}
-  .tag-yellow{color:var(--yellow);border-color:var(--yellow);}
-  .tag-cyan{color:var(--cyan);border-color:var(--cyan);}
-
-  /* ── TERMINAL ── */
-  .terminal{
-    background:#020408;
-    border:1px solid var(--border);
-    border-radius:6px;
-    overflow:hidden;
-    margin-bottom:28px;
-  }
-  .term-bar{
-    display:flex;align-items:center;gap:8px;
-    background:#0d1420;padding:10px 16px;
-    border-bottom:1px solid var(--border);
-  }
+  .card-tag{display:inline-block;margin-top:12px;font-size:.6rem;letter-spacing:1px;padding:2px 8px;border-radius:3px;border:1px solid;}
+  .tag-red{color:var(--red);border-color:var(--red);} .tag-green{color:var(--green);border-color:var(--green);}
+  .tag-yellow{color:var(--yellow);border-color:var(--yellow);} .tag-cyan{color:var(--cyan);border-color:var(--cyan);}
+  .terminal{background:#020408;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:28px;}
+  .term-bar{display:flex;align-items:center;gap:8px;background:#0d1420;padding:10px 16px;border-bottom:1px solid var(--border);}
   .term-dot{width:12px;height:12px;border-radius:50%;}
   .term-title{font-size:.72rem;color:var(--muted);margin-left:8px;flex:1;}
   .term-body{padding:16px 20px;min-height:200px;max-height:400px;overflow-y:auto;font-size:.78rem;line-height:1.8;}
   .term-line{display:flex;gap:8px;align-items:flex-start;}
-  .prompt{color:var(--green);white-space:nowrap;}
-  .cmd{color:var(--cyan);}
-  .out-ok{color:var(--green);}
-  .out-err{color:var(--red);}
-  .out-info{color:var(--yellow);}
-  .out-data{color:var(--text);}
-  .term-input-row{
-    display:flex;align-items:center;gap:8px;
-    padding:10px 20px;border-top:1px solid var(--border);
-    background:#030609;
-  }
-  .term-input{
-    flex:1;background:transparent;border:none;outline:none;
-    color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:.78rem;
-    caret-color:var(--green);
-  }
-  .cursor-blink{
-    display:inline-block;width:8px;height:14px;
-    background:var(--green);
-    animation:blink .8s step-end infinite;
-    vertical-align:middle;
-  }
-
-  /* ── ATTACK SIMULATOR ── */
-  .sim-panel{
-    background:var(--panel);border:1px solid var(--border);
-    border-radius:6px;padding:24px;margin-bottom:28px;
-  }
-  .sim-title{
-    font-family:'Orbitron',sans-serif;
-    font-size:.9rem;color:var(--cyan);
-    text-shadow:var(--glow-c);margin-bottom:20px;
-    display:flex;align-items:center;gap:10px;
-  }
+  .prompt{color:var(--green);white-space:nowrap;} .cmd{color:var(--cyan);}
+  .out-ok{color:var(--green);} .out-err{color:var(--red);} .out-info{color:var(--yellow);} .out-data{color:var(--text);}
+  .term-input-row{display:flex;align-items:center;gap:8px;padding:10px 20px;border-top:1px solid var(--border);background:#030609;}
+  .term-input{flex:1;background:transparent;border:none;outline:none;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:.78rem;caret-color:var(--green);}
+  .cursor-blink{display:inline-block;width:8px;height:14px;background:var(--green);animation:blink .8s step-end infinite;vertical-align:middle;}
+  .sim-panel{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:24px;margin-bottom:28px;}
+  .sim-title{font-family:'Orbitron',sans-serif;font-size:.9rem;color:var(--cyan);text-shadow:var(--glow-c);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
   .sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
   .field{display:flex;flex-direction:column;gap:6px;}
   .field label{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
-  .field input,.field select{
-    background:#020408;border:1px solid var(--border);
-    border-radius:4px;padding:10px 12px;
-    color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.78rem;
-    outline:none;transition:border .2s;
-  }
+  .field input,.field select{background:#020408;border:1px solid var(--border);border-radius:4px;padding:10px 12px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.78rem;outline:none;transition:border .2s;}
   .field input:focus,.field select:focus{border-color:var(--cyan);}
   .field select option{background:#0b0f1a;}
-  .btn{
-    padding:10px 24px;border:none;border-radius:4px;
-    font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;
-    letter-spacing:2px;cursor:pointer;
-    transition:all .2s;
-  }
+  .btn{padding:10px 24px;border:none;border-radius:4px;font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .2s;}
   .btn-green{background:rgba(0,255,136,.15);color:var(--green);border:1px solid var(--green);}
   .btn-green:hover{background:rgba(0,255,136,.25);box-shadow:var(--glow-g);}
   .btn-red{background:rgba(255,51,102,.15);color:var(--red);border:1px solid var(--red);}
@@ -235,8 +87,6 @@
   .btn-cyan{background:rgba(0,212,255,.15);color:var(--cyan);border:1px solid var(--cyan);}
   .btn-cyan:hover{background:rgba(0,212,255,.25);box-shadow:var(--glow-c);}
   .btn-row{display:flex;gap:12px;flex-wrap:wrap;}
-
-  /* ── PROGRESS / STATUS ── */
   .progress-wrap{margin-top:16px;}
   .progress-label{display:flex;justify-content:space-between;font-size:.68rem;margin-bottom:6px;color:var(--muted);}
   .progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
@@ -244,144 +94,54 @@
   .fill-green{background:linear-gradient(90deg,var(--green),#00ffbb);}
   .fill-red{background:linear-gradient(90deg,var(--red),#ff6699);}
   .fill-cyan{background:linear-gradient(90deg,var(--cyan),#66e8ff);}
-
-  /* ── INFO BOX ── */
-  .info-box{
-    border-left:3px solid var(--accent,var(--cyan));
-    background:rgba(0,212,255,.04);
-    padding:14px 18px;border-radius:0 4px 4px 0;
-    font-size:.76rem;line-height:1.7;color:var(--muted);
-    margin-bottom:16px;
-  }
+  .info-box{border-left:3px solid var(--accent,var(--cyan));background:rgba(0,212,255,.04);padding:14px 18px;border-radius:0 4px 4px 0;font-size:.76rem;line-height:1.7;color:var(--muted);margin-bottom:16px;}
   .info-box.warn{--accent:var(--yellow);background:rgba(255,215,0,.04);}
   .info-box.danger{--accent:var(--red);background:rgba(255,51,102,.04);}
-
-  /* ── TABLE ── */
   .data-table{width:100%;border-collapse:collapse;font-size:.75rem;margin-bottom:24px;}
-  .data-table th{
-    text-align:left;padding:10px 14px;
-    color:var(--muted);font-weight:500;letter-spacing:1px;font-size:.65rem;
-    border-bottom:1px solid var(--border);
-    text-transform:uppercase;
-  }
+  .data-table th{text-align:left;padding:10px 14px;color:var(--muted);font-weight:500;letter-spacing:1px;font-size:.65rem;border-bottom:1px solid var(--border);text-transform:uppercase;}
   .data-table td{padding:10px 14px;border-bottom:1px solid rgba(26,38,64,.5);color:var(--text);}
   .data-table tr:hover td{background:rgba(0,212,255,.03);}
-
-  /* ── PACKET VISUALIZER ── */
-  .packet-viz{
-    background:#020408;border:1px solid var(--border);
-    border-radius:6px;padding:20px;margin-bottom:28px;
-    overflow-x:auto;
-  }
-  .packet-flow{display:flex;align-items:center;gap:0;min-width:600px;}
-  .pf-node{
-    background:var(--panel);border:1px solid var(--border);
-    border-radius:6px;padding:12px 16px;text-align:center;
-    min-width:110px;font-size:.68rem;
-  }
+  .packet-viz{background:#020408;border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:28px;overflow-x:auto;}
+  .packet-flow{display:flex;align-items:center;min-width:600px;}
+  .pf-node{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px 16px;text-align:center;min-width:110px;font-size:.68rem;}
   .pf-node .node-icon{font-size:1.4rem;margin-bottom:4px;}
   .pf-node .node-label{color:var(--muted);font-size:.6rem;}
   .pf-node .node-ip{color:var(--cyan);margin-top:2px;}
-  .pf-arrow{
-    flex:1;height:2px;position:relative;min-width:40px;
-  }
-  .pf-arrow::before{
-    content:'';position:absolute;inset:0;
-    background:var(--arrow-color,var(--green));
-    box-shadow:0 0 8px var(--arrow-color,var(--green));
-  }
-  .pf-arrow::after{
-    content:'▶';position:absolute;right:-6px;top:-8px;
-    color:var(--arrow-color,var(--green));font-size:.8rem;
-  }
-  .pf-arrow.red{--arrow-color:var(--red);}
-  .pf-arrow.cyan{--arrow-color:var(--cyan);}
-  .pf-arrow.yellow{--arrow-color:var(--yellow);}
-  .pf-label{
-    position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
-    font-size:.6rem;color:var(--muted);white-space:nowrap;
-  }
-  .pf-wrap{position:relative;}
-
-  /* ── TABS ── */
-  .tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px;}
-  .tab{
-    padding:10px 20px;font-size:.72rem;letter-spacing:1px;
-    cursor:pointer;color:var(--muted);
-    border-bottom:2px solid transparent;transition:all .2s;
-  }
-  .tab:hover{color:var(--text);}
-  .tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
-  .tab-content{display:none;}
-  .tab-content.active{display:block;}
-
-  /* ── LOG STREAM ── */
-  .log-stream{
-    background:#020408;border:1px solid var(--border);
-    border-radius:6px;height:220px;overflow-y:auto;
-    padding:12px 16px;font-size:.72rem;line-height:1.8;
-  }
+  .pf-arrow{flex:1;height:2px;position:relative;min-width:40px;}
+  .pf-arrow::before{content:'';position:absolute;inset:0;background:var(--arrow-color,var(--green));box-shadow:0 0 8px var(--arrow-color,var(--green));}
+  .pf-arrow::after{content:'▶';position:absolute;right:-6px;top:-8px;color:var(--arrow-color,var(--green));font-size:.8rem;}
+  .pf-arrow.red{--arrow-color:var(--red);} .pf-arrow.cyan{--arrow-color:var(--cyan);} .pf-arrow.yellow{--arrow-color:var(--yellow);}
+  .pf-label{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-size:.58rem;color:var(--muted);white-space:nowrap;}
+  .pf-wrap{position:relative;flex:1;}
+  .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:24px;}
+  .tab{padding:10px 20px;font-size:.72rem;letter-spacing:1px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s;}
+  .tab:hover{color:var(--text);} .tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+  .tab-content{display:none;} .tab-content.active{display:block;}
+  .log-stream{background:#020408;border:1px solid var(--border);border-radius:6px;height:220px;overflow-y:auto;padding:12px 16px;font-size:.72rem;line-height:1.8;}
   .log-line{opacity:0;animation:fadeIn .3s forwards;}
   .log-ts{color:var(--muted);margin-right:8px;}
-  .log-level-warn{color:var(--yellow);}
-  .log-level-crit{color:var(--red);}
-  .log-level-ok{color:var(--green);}
-  .log-level-info{color:var(--cyan);}
-
-  /* ── STATS ROW ── */
+  .log-level-warn{color:var(--yellow);} .log-level-crit{color:var(--red);} .log-level-ok{color:var(--green);} .log-level-info{color:var(--cyan);}
   .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-  .stat-card{
-    background:var(--panel);border:1px solid var(--border);
-    border-radius:6px;padding:16px;text-align:center;
-    position:relative;overflow:hidden;
-  }
-  .stat-card::after{
-    content:'';
-    position:absolute;bottom:0;left:0;right:0;height:1px;
-    background:linear-gradient(90deg,transparent,var(--s-color,var(--green)),transparent);
-  }
-  .stat-num{
-    font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:700;
-    color:var(--s-color,var(--green));
-    text-shadow:0 0 15px var(--s-color,var(--green));
-  }
+  .stat-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:16px;text-align:center;position:relative;overflow:hidden;}
+  .stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--s-color,var(--green)),transparent);}
+  .stat-num{font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:700;color:var(--s-color,var(--green));text-shadow:0 0 15px var(--s-color,var(--green));}
   .stat-lbl{font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-top:4px;}
-  .stat-cyan{--s-color:var(--cyan);}
-  .stat-red{--s-color:var(--red);}
-  .stat-yellow{--s-color:var(--yellow);}
-
-  /* ── SECTION HIDDEN ── */
-  .section{display:none;}
-  .section.active{display:block;}
-
-  /* ── ANIMATIONS ── */
+  .stat-cyan{--s-color:var(--cyan);} .stat-red{--s-color:var(--red);} .stat-yellow{--s-color:var(--yellow);}
+  .section{display:none;} .section.active{display:block;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
   @keyframes fadeIn{to{opacity:1}}
   @keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes flow{0%{background-position:0 0}100%{background-position:40px 0}}
-  @keyframes counter{from{opacity:0}to{opacity:1}}
-
   .animate-in{animation:slideIn .4s ease forwards;}
-
-  /* ── SCROLLBAR ── */
   ::-webkit-scrollbar{width:4px;height:4px;}
   ::-webkit-scrollbar-track{background:var(--bg);}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
   ::-webkit-scrollbar-thumb:hover{background:var(--muted);}
-
-  /* ── RESPONSIVE ── */
-  @media(max-width:900px){
-    .wrapper{grid-template-columns:1fr;}
-    aside{display:none;}
-    .stats-row{grid-template-columns:1fr 1fr;}
-    .sim-grid{grid-template-columns:1fr;}
-  }
+  @media(max-width:900px){.wrapper{grid-template-columns:1fr;}aside{display:none;}.stats-row{grid-template-columns:1fr 1fr;}.sim-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">HACKING<span>LAYER</span> // DNS LAB</div>
   <div class="status-bar">
@@ -394,125 +154,77 @@
 </header>
 
 <div class="wrapper">
-  <!-- SIDEBAR -->
   <aside>
     <div class="nav-section">
-      <div class="nav-label">📡 Ana Panel</div>
-      <div class="nav-item active" onclick="showSection('dashboard')">
-        <span class="nav-icon">⊞</span> Dashboard
-      </div>
-      <div class="nav-item" onclick="showSection('theory')">
-        <span class="nav-icon">📚</span> DNS Nəzəriyyəsi
-      </div>
+      <div class="nav-label">📡 Main Panel</div>
+      <div class="nav-item active" onclick="showSection('dashboard',this)"><span class="nav-icon">⊞</span> Dashboard</div>
+      <div class="nav-item" onclick="showSection('theory',this)"><span class="nav-icon">📚</span> DNS Theory</div>
     </div>
     <div class="nav-section">
-      <div class="nav-label">⚔ Hücum Növləri</div>
-      <div class="nav-item" onclick="showSection('spoofing')">
-        <span class="nav-icon">🎭</span> DNS Spoofing
-        <span class="nav-count">Lab</span>
-      </div>
-      <div class="nav-item" onclick="showSection('flood')">
-        <span class="nav-icon">🌊</span> DNS Flood
-        <span class="nav-count">Lab</span>
-      </div>
-      <div class="nav-item" onclick="showSection('amplification')">
-        <span class="nav-icon">📡</span> Amplification
-        <span class="nav-count">Lab</span>
-      </div>
-      <div class="nav-item" onclick="showSection('cache')">
-        <span class="nav-icon">💾</span> Cache Poisoning
-        <span class="nav-count">Lab</span>
-      </div>
-      <div class="nav-item" onclick="showSection('nxdomain')">
-        <span class="nav-icon">❌</span> NXDOMAIN Attack
-        <span class="nav-count">Lab</span>
-      </div>
+      <div class="nav-label">⚔ Attack Types</div>
+      <div class="nav-item" onclick="showSection('spoofing',this)"><span class="nav-icon">🎭</span> DNS Spoofing<span class="nav-count">Lab</span></div>
+      <div class="nav-item" onclick="showSection('flood',this)"><span class="nav-icon">🌊</span> DNS Flood<span class="nav-count">Lab</span></div>
+      <div class="nav-item" onclick="showSection('amplification',this)"><span class="nav-icon">📡</span> Amplification<span class="nav-count">Lab</span></div>
+      <div class="nav-item" onclick="showSection('cache',this)"><span class="nav-icon">💾</span> Cache Poisoning<span class="nav-count">Lab</span></div>
+      <div class="nav-item" onclick="showSection('nxdomain',this)"><span class="nav-icon">❌</span> NXDOMAIN Attack<span class="nav-count">Lab</span></div>
     </div>
     <div class="nav-section">
-      <div class="nav-label">🛡 Müdafiə</div>
-      <div class="nav-item" onclick="showSection('defense')">
-        <span class="nav-icon">🔒</span> Müdafiə Texniki
-      </div>
-      <div class="nav-item" onclick="showSection('tools')">
-        <span class="nav-icon">🔧</span> Alətlər
-      </div>
+      <div class="nav-label">🛡 Defense</div>
+      <div class="nav-item" onclick="showSection('defense',this)"><span class="nav-icon">🔒</span> Defense Techniques</div>
+      <div class="nav-item" onclick="showSection('tools',this)"><span class="nav-icon">🔧</span> Tools</div>
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
   <main>
 
-    <!-- ═══════════ DASHBOARD ═══════════ -->
+    <!-- DASHBOARD -->
     <div class="section active animate-in" id="dashboard">
       <div class="section-header">
         <h1>⊞ DNS ATTACK LAB</h1>
-        <p>Xoş gəldiniz! Bu lab DNS hücumlarını öyrənmək üçün təhlükəsiz sandbox mühitidir.</p>
+        <p>Welcome! This is a safe sandbox environment for learning DNS attack techniques.</p>
       </div>
-
       <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-num" id="stat1">5</div>
-          <div class="stat-lbl">HÜCUM NÖVLƏRİ</div>
-        </div>
-        <div class="stat-card stat-cyan">
-          <div class="stat-num" id="stat2">0</div>
-          <div class="stat-lbl">SİMULYASİYALAR</div>
-        </div>
-        <div class="stat-card stat-red">
-          <div class="stat-num" id="stat3">0</div>
-          <div class="stat-lbl">PAKETLƏR GÖNDƏRİLDİ</div>
-        </div>
-        <div class="stat-card stat-yellow">
-          <div class="stat-num" id="stat4">100%</div>
-          <div class="stat-lbl">SANDBOX TƏHLÜKƏSİZLİK</div>
-        </div>
+        <div class="stat-card"><div class="stat-num">5</div><div class="stat-lbl">ATTACK TYPES</div></div>
+        <div class="stat-card stat-cyan"><div class="stat-num" id="stat2">0</div><div class="stat-lbl">SIMULATIONS RUN</div></div>
+        <div class="stat-card stat-red"><div class="stat-num" id="stat3">0</div><div class="stat-lbl">PACKETS SENT</div></div>
+        <div class="stat-card stat-yellow"><div class="stat-num">100%</div><div class="stat-lbl">SANDBOX SAFETY</div></div>
       </div>
-
       <div class="info-box warn">
-        ⚠️ <strong>Qanuni xəbərdarlıq:</strong> Bu lab yalnız <strong>təhsil məqsədilə</strong> hazırlanmışdır. 
-        Bütün simulyasiyalar yerli sandbox mühitdə icra olunur. Real sistemlərə hücum qanunsuz fəaliyyətdir.
+        ⚠️ <strong>Legal Disclaimer:</strong> This lab is designed <strong>for educational purposes only</strong>.
+        All simulations run inside a local sandbox. Attacking real systems without authorization is illegal and unethical.
       </div>
-
       <div class="cards">
-        <div class="card red" onclick="showSection('spoofing')">
-          <div class="card-icon">🎭</div>
-          <div class="card-title">DNS Spoofing / Poisoning</div>
-          <div class="card-desc">Saxta DNS cavabları göndərərək istifadəçiləri zərərli saytlara yönləndirmə texnikası.</div>
-          <span class="card-tag tag-red">YÜKSƏKRİSKLİ</span>
+        <div class="card red" onclick="showSection('spoofing',null)">
+          <div class="card-icon">🎭</div><div class="card-title">DNS Spoofing / Poisoning</div>
+          <div class="card-desc">Sending forged DNS responses to redirect users to malicious servers.</div>
+          <span class="card-tag tag-red">HIGH RISK</span>
         </div>
-        <div class="card cyan" onclick="showSection('flood')">
-          <div class="card-icon">🌊</div>
-          <div class="card-title">DNS Flood (DDoS)</div>
-          <div class="card-desc">DNS serverini kütləvi sorğularla aşırılamaq — klassik DoS hücum vektoru.</div>
-          <span class="card-tag tag-cyan">DDoS VEKTORİ</span>
+        <div class="card cyan" onclick="showSection('flood',null)">
+          <div class="card-icon">🌊</div><div class="card-title">DNS Flood (DDoS)</div>
+          <div class="card-desc">Overwhelming a DNS server with massive query volumes — classic DoS vector.</div>
+          <span class="card-tag tag-cyan">DDoS VECTOR</span>
         </div>
-        <div class="card orange" onclick="showSection('amplification')">
-          <div class="card-icon">📡</div>
-          <div class="card-title">DNS Amplification</div>
-          <div class="card-desc">Kiçik sorğularla böyük cavab trafikini hədəfə yönləndirən gücləndirilmiş hücum.</div>
-          <span class="card-tag tag-yellow">AMPLIFIKASIYA</span>
+        <div class="card orange" onclick="showSection('amplification',null)">
+          <div class="card-icon">📡</div><div class="card-title">DNS Amplification</div>
+          <div class="card-desc">Directing amplified response traffic at a target using small spoofed queries.</div>
+          <span class="card-tag tag-yellow">AMPLIFICATION</span>
         </div>
-        <div class="card yellow" onclick="showSection('cache')">
-          <div class="card-icon">💾</div>
-          <div class="card-title">Cache Poisoning</div>
-          <div class="card-desc">DNS resolver keşinə saxta qeydlər yeritmək — Kaminsky hücumu üsulu.</div>
-          <span class="card-tag tag-yellow">KEŞ HÜCUMu</span>
+        <div class="card yellow" onclick="showSection('cache',null)">
+          <div class="card-icon">💾</div><div class="card-title">Cache Poisoning</div>
+          <div class="card-desc">Injecting forged records into a DNS resolver cache — the Kaminsky method.</div>
+          <span class="card-tag tag-yellow">CACHE ATTACK</span>
         </div>
-        <div class="card purple" onclick="showSection('nxdomain')">
-          <div class="card-icon">❌</div>
-          <div class="card-title">NXDOMAIN Attack</div>
-          <div class="card-desc">Mövcud olmayan domain sorğuları ilə DNS infrastrukturuna yük vurmaq.</div>
-          <span class="card-tag tag-cyan">İNFRA HÜCUMU</span>
+        <div class="card purple" onclick="showSection('nxdomain',null)">
+          <div class="card-icon">❌</div><div class="card-title">NXDOMAIN Attack</div>
+          <div class="card-desc">Overloading DNS infrastructure with queries for non-existent domains.</div>
+          <span class="card-tag tag-cyan">INFRA ATTACK</span>
         </div>
-        <div class="card" onclick="showSection('defense')">
-          <div class="card-icon">🛡</div>
-          <div class="card-title">Müdafiə Strategiyaları</div>
-          <div class="card-desc">DNSSEC, rate limiting, RPZ, DNS firewall — hücumlara qarşı mühafizə.</div>
-          <span class="card-tag tag-green">MÜDAFİƏ</span>
+        <div class="card" onclick="showSection('defense',null)">
+          <div class="card-icon">🛡</div><div class="card-title">Defense Strategies</div>
+          <div class="card-desc">DNSSEC, rate limiting, RPZ, DNS firewall — protecting against DNS attacks.</div>
+          <span class="card-tag tag-green">DEFENSE</span>
         </div>
       </div>
-
-      <!-- MINI TERMINAL -->
       <div class="terminal">
         <div class="term-bar">
           <div class="term-dot" style="background:#ff5f56"></div>
@@ -522,129 +234,110 @@
         </div>
         <div class="term-body" id="dashTerm">
           <div class="term-line"><span class="prompt">$</span><span class="cmd"> nmap -sU -p 53 192.168.1.0/24</span></div>
-          <div class="term-line" style="margin-left:16px"><span class="out-ok">Starting Nmap 7.94 ( https://nmap.org )</span></div>
-          <div class="term-line" style="margin-left:16px"><span class="out-data">Discovered open port 53/udp on 192.168.1.1</span></div>
-          <div class="term-line" style="margin-left:16px"><span class="out-data">Discovered open port 53/udp on 192.168.1.10</span></div>
-          <div class="term-line" style="margin-left:16px"><span class="out-ok">DNS servers detected: 2</span></div>
+          <div style="margin-left:16px"><span class="out-ok">Starting Nmap 7.94 ( https://nmap.org )</span></div>
+          <div style="margin-left:16px"><span class="out-data">Discovered open port 53/udp on 192.168.1.1</span></div>
+          <div style="margin-left:16px"><span class="out-data">Discovered open port 53/udp on 192.168.1.10</span></div>
+          <div style="margin-left:16px"><span class="out-ok">DNS servers detected: 2</span></div>
           <div class="term-line"><span class="prompt">$</span><span class="cmd"> dig @192.168.1.1 hackinglayer.lab ANY</span></div>
-          <div class="term-line" style="margin-left:16px"><span class="out-info">;; ANSWER SECTION:</span></div>
-          <div class="term-line" style="margin-left:16px"><span class="out-data">hackinglayer.lab. 300 IN A 192.168.1.100</span></div>
-          <div class="term-line" style="margin-left:16px"><span class="out-data">hackinglayer.lab. 300 IN MX 10 mail.hackinglayer.lab.</span></div>
-          <div class="term-line"><span class="prompt">$</span><span class="cmd cursor-blink"></span></div>
+          <div style="margin-left:16px"><span class="out-info">;; ANSWER SECTION:</span></div>
+          <div style="margin-left:16px"><span class="out-data">hackinglayer.lab. 300 IN A 192.168.1.100</span></div>
+          <div style="margin-left:16px"><span class="out-data">hackinglayer.lab. 300 IN MX 10 mail.hackinglayer.lab.</span></div>
+          <div class="term-line"><span class="prompt">$</span><span class="cursor-blink"></span></div>
         </div>
         <div class="term-input-row">
           <span class="prompt">$</span>
-          <input class="term-input" id="termInput" placeholder="komanda daxil edin..." onkeydown="handleTerm(event)">
+          <input class="term-input" id="termInput" placeholder="type a command (try: help, whoami, uname -a)..." onkeydown="handleTerm(event)">
         </div>
       </div>
     </div>
 
-    <!-- ═══════════ THEORY ═══════════ -->
+    <!-- THEORY -->
     <div class="section animate-in" id="theory">
       <div class="section-header">
-        <h1>📚 DNS NƏZƏRİYYƏSİ</h1>
-        <p>Domain Name System arxitekturası və hücum səthi anlayışları.</p>
+        <h1>📚 DNS THEORY</h1>
+        <p>Domain Name System architecture and attack surface fundamentals.</p>
       </div>
-
       <div class="tabs">
-        <div class="tab active" onclick="switchTab(this,'tab-basics')">Əsaslar</div>
-        <div class="tab" onclick="switchTab(this,'tab-records')">DNS Qeydləri</div>
-        <div class="tab" onclick="switchTab(this,'tab-flow')">Sorğu Axını</div>
-        <div class="tab" onclick="switchTab(this,'tab-vuln')">Zəifliklər</div>
+        <div class="tab active" onclick="switchTab(this,'tab-basics')">Basics</div>
+        <div class="tab" onclick="switchTab(this,'tab-records')">DNS Records</div>
+        <div class="tab" onclick="switchTab(this,'tab-flow')">Query Flow</div>
+        <div class="tab" onclick="switchTab(this,'tab-vuln')">Vulnerabilities</div>
       </div>
-
       <div class="tab-content active" id="tab-basics">
         <div class="info-box">
-          <strong style="color:var(--cyan)">DNS nədir?</strong><br>
-          DNS (Domain Name System) — domainləri IP ünvanlara çevirən paylanmış verilənlər bazasıdır. 
-          İnternetin "telefon kitabçası" adlanır. Port 53 (UDP/TCP) üzərindən işləyir.
+          <strong style="color:var(--cyan)">What is DNS?</strong><br>
+          DNS (Domain Name System) is a distributed database that translates human-readable domain names into
+          IP addresses. Often called the "phone book of the internet." Operates over Port 53 (UDP/TCP).
         </div>
         <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-          <div class="card cyan"><div class="card-icon">🌐</div><div class="card-title">Root DNS</div><div class="card-desc">13 root server qrupu. TLD-ləri bilir.</div></div>
-          <div class="card"><div class="card-icon">📋</div><div class="card-title">TLD Serverləri</div><div class="card-desc">.az, .com, .net üçün cavabdeh.</div></div>
-          <div class="card yellow"><div class="card-icon">🏠</div><div class="card-title">Authoritative</div><div class="card-desc">Domainə aid rəsmi cavab verir.</div></div>
+          <div class="card cyan"><div class="card-icon">🌐</div><div class="card-title">Root DNS</div><div class="card-desc">13 root server clusters. Knows the location of all TLD servers.</div></div>
+          <div class="card"><div class="card-icon">📋</div><div class="card-title">TLD Servers</div><div class="card-desc">Responsible for .com, .net, .org, .az and other TLDs.</div></div>
+          <div class="card yellow"><div class="card-icon">🏠</div><div class="card-title">Authoritative Server</div><div class="card-desc">Provides the definitive, authoritative answer for a specific domain.</div></div>
         </div>
       </div>
-
       <div class="tab-content" id="tab-records">
         <table class="data-table">
-          <thead><tr><th>Qeyd Tipi</th><th>Funksiya</th><th>Misal</th><th>Hücum Relevantlığı</th></tr></thead>
+          <thead><tr><th>Record Type</th><th>Function</th><th>Example</th><th>Attack Relevance</th></tr></thead>
           <tbody>
-            <tr><td style="color:var(--green)">A</td><td>Domain → IPv4</td><td>example.com → 1.2.3.4</td><td><span class="card-tag tag-red">Spoofing hədəfi</span></td></tr>
-            <tr><td style="color:var(--cyan)">AAAA</td><td>Domain → IPv6</td><td>example.com → ::1</td><td><span class="card-tag tag-yellow">Orta</span></td></tr>
-            <tr><td style="color:var(--yellow)">MX</td><td>Mail serveri</td><td>mail.example.com</td><td><span class="card-tag tag-red">Phishing</span></td></tr>
-            <tr><td style="color:var(--orange)">NS</td><td>Name serverlər</td><td>ns1.example.com</td><td><span class="card-tag tag-red">NS Hijacking</span></td></tr>
-            <tr><td style="color:var(--purple)">TXT</td><td>Mətn qeydlər</td><td>SPF, DMARC</td><td><span class="card-tag tag-yellow">Amplification</span></td></tr>
-            <tr><td style="color:var(--red)">ANY</td><td>Bütün qeydlər</td><td>*</td><td><span class="card-tag tag-red">Amplification hədəfi</span></td></tr>
-            <tr><td style="color:var(--green)">CNAME</td><td>Alias</td><td>www → example.com</td><td><span class="card-tag tag-yellow">CNAME Chain</span></td></tr>
+            <tr><td style="color:var(--green)">A</td><td>Domain → IPv4</td><td>example.com → 1.2.3.4</td><td><span class="card-tag tag-red">Primary spoofing target</span></td></tr>
+            <tr><td style="color:var(--cyan)">AAAA</td><td>Domain → IPv6</td><td>example.com → ::1</td><td><span class="card-tag tag-yellow">Medium risk</span></td></tr>
+            <tr><td style="color:var(--yellow)">MX</td><td>Mail server routing</td><td>mail.example.com</td><td><span class="card-tag tag-red">Email phishing</span></td></tr>
+            <tr><td style="color:var(--orange)">NS</td><td>Name server delegation</td><td>ns1.example.com</td><td><span class="card-tag tag-red">NS hijacking</span></td></tr>
+            <tr><td style="color:var(--purple)">TXT</td><td>Text records (SPF, DMARC)</td><td>"v=spf1 ..."</td><td><span class="card-tag tag-yellow">Amplification</span></td></tr>
+            <tr><td style="color:var(--red)">ANY</td><td>Return all record types</td><td>*</td><td><span class="card-tag tag-red">Amplification target</span></td></tr>
+            <tr><td style="color:var(--green)">CNAME</td><td>Canonical alias</td><td>www → example.com</td><td><span class="card-tag tag-yellow">CNAME chain abuse</span></td></tr>
           </tbody>
         </table>
       </div>
-
       <div class="tab-content" id="tab-flow">
-        <div class="info-box">DNS sorğusunun tam axını — hücum nöqtələri qırmızı ilə işarələnib.</div>
+        <div class="info-box">Full DNS query resolution flow — attack injection points highlighted in red.</div>
         <div class="packet-viz">
           <div class="packet-flow">
             <div class="pf-node"><div class="node-icon">💻</div><div class="node-label">Client</div><div class="node-ip">192.168.1.5</div></div>
-            <div class="pf-wrap" style="flex:1;position:relative">
-              <div class="pf-arrow cyan"></div>
-              <div class="pf-label" style="bottom:-18px;font-size:.58rem;color:var(--cyan)">1. Sorğu</div>
-            </div>
+            <div class="pf-wrap"><div class="pf-arrow cyan"></div><div class="pf-label" style="bottom:-20px">1. DNS Query</div></div>
             <div class="pf-node"><div class="node-icon">🔄</div><div class="node-label">Resolver</div><div class="node-ip">8.8.8.8</div></div>
-            <div class="pf-wrap" style="flex:1;position:relative">
-              <div class="pf-arrow"></div>
-              <div class="pf-label" style="bottom:-18px;font-size:.58rem;color:var(--green)">2. Recursive</div>
-            </div>
+            <div class="pf-wrap"><div class="pf-arrow"></div><div class="pf-label" style="bottom:-20px">2. Recursive</div></div>
             <div class="pf-node"><div class="node-icon">🌍</div><div class="node-label">Root DNS</div><div class="node-ip">a.root-servers</div></div>
-            <div class="pf-wrap" style="flex:1;position:relative">
-              <div class="pf-arrow yellow"></div>
-              <div class="pf-label" style="bottom:-18px;font-size:.58rem;color:var(--yellow)">3. TLD Ref</div>
-            </div>
+            <div class="pf-wrap"><div class="pf-arrow yellow"></div><div class="pf-label" style="bottom:-20px">3. TLD Referral</div></div>
             <div class="pf-node"><div class="node-icon">📋</div><div class="node-label">Auth DNS</div><div class="node-ip">ns1.domain.com</div></div>
-            <div class="pf-wrap" style="flex:1;position:relative">
-              <div class="pf-arrow red"></div>
-              <div class="pf-label" style="bottom:-18px;font-size:.58rem;color:var(--red)">⚠ Hücum nöqtəsi</div>
-            </div>
-            <div class="pf-node" style="border-color:var(--red)"><div class="node-icon">💻</div><div class="node-label">Client</div><div class="node-ip" style="color:var(--red)">SAXTA IP!</div></div>
+            <div class="pf-wrap"><div class="pf-arrow red"></div><div class="pf-label" style="bottom:-20px;color:var(--red)">⚠ Attack Point</div></div>
+            <div class="pf-node" style="border-color:var(--red)"><div class="node-icon">💻</div><div class="node-label">Client</div><div class="node-ip" style="color:var(--red)">FAKE IP!</div></div>
           </div>
         </div>
       </div>
-
       <div class="tab-content" id="tab-vuln">
-        <div class="info-box danger">⚠ Bu məlumatlar yalnız müdafiə məqsədli öyrənmə üçündür.</div>
+        <div class="info-box danger">⚠ This information is strictly for defensive security learning purposes.</div>
         <table class="data-table">
-          <thead><tr><th>Zəiflik</th><th>CVSSv3</th><th>Mexanizm</th><th>Müdafiə</th></tr></thead>
+          <thead><tr><th>Vulnerability</th><th>CVSSv3</th><th>Mechanism</th><th>Mitigation</th></tr></thead>
           <tbody>
-            <tr><td style="color:var(--red)">DNS Cache Poisoning</td><td style="color:var(--red)">8.1</td><td>Transaction ID tahmin</td><td>DNSSEC, QNAME minimization</td></tr>
-            <tr><td style="color:var(--orange)">DNS Amplification</td><td style="color:var(--orange)">7.5</td><td>ANY query + spoofed src</td><td>BCP38, response rate limiting</td></tr>
-            <tr><td style="color:var(--yellow)">Zone Transfer</td><td style="color:var(--yellow)">5.3</td><td>AXFR unrestricted</td><td>TSIG, ACL</td></tr>
-            <tr><td style="color:var(--cyan)">DNS Tunneling</td><td style="color:var(--cyan)">6.8</td><td>Data in DNS subdomains</td><td>DNS firewall, RPZ</td></tr>
-            <tr><td style="color:var(--purple)">NXDOMAIN Attack</td><td style="color:var(--purple)">6.1</td><td>Nonexistent domains</td><td>Rate limiting, NXNS</td></tr>
+            <tr><td style="color:var(--red)">DNS Cache Poisoning</td><td style="color:var(--red)">8.1</td><td>Transaction ID prediction</td><td>DNSSEC, QNAME minimization</td></tr>
+            <tr><td style="color:var(--orange)">DNS Amplification</td><td style="color:var(--orange)">7.5</td><td>ANY query + spoofed source IP</td><td>BCP38, response rate limiting</td></tr>
+            <tr><td style="color:var(--yellow)">Zone Transfer Leak</td><td style="color:var(--yellow)">5.3</td><td>Unrestricted AXFR requests</td><td>TSIG authentication, ACL</td></tr>
+            <tr><td style="color:var(--cyan)">DNS Tunneling</td><td style="color:var(--cyan)">6.8</td><td>Data exfiltration via subdomains</td><td>DNS firewall, RPZ, DPI</td></tr>
+            <tr><td style="color:var(--purple)">NXDOMAIN Flood</td><td style="color:var(--purple)">6.1</td><td>Non-existent domain queries</td><td>Rate limiting, NXNS patch</td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- ═══════════ DNS SPOOFING ═══════════ -->
+    <!-- DNS SPOOFING -->
     <div class="section animate-in" id="spoofing">
       <div class="section-header">
         <h1>🎭 DNS SPOOFING LAB</h1>
-        <p>Saxta DNS cavabları ilə istifadəçiləri yönləndirmə simulyasiyası.</p>
+        <p>Simulation of user redirection via forged DNS responses.</p>
       </div>
-
       <div class="info-box">
-        <strong style="color:var(--green)">Necə işləyir?</strong><br>
-        Hücumçu həqiqi DNS cavabından əvvəl saxta UDP paketi göndərir. Transaction ID (16-bit) düzgün
-        təxmin edilirsə, resolver saxta IP-ni keşə yazır. Bütün istifadəçilər 
-        <span style="color:var(--red)">zərərli serverə</span> yönləndirilir.
+        <strong style="color:var(--green)">How it works:</strong><br>
+        The attacker sends a forged UDP packet before the legitimate DNS reply arrives. If the Transaction ID
+        (16-bit value, range 0–65535) is guessed correctly, the resolver writes the attacker's fake IP into its cache.
+        All users are then silently redirected to the <span style="color:var(--red)">malicious server</span>.
       </div>
-
       <div class="sim-panel">
-        <div class="sim-title">🎯 Spoofing Simulyatoru</div>
+        <div class="sim-title">🎯 Spoofing Simulator</div>
         <div class="sim-grid">
-          <div class="field"><label>Hədəf Domain</label><input id="sp-domain" value="bank.example.az" placeholder="target.domain.az"></div>
-          <div class="field"><label>Saxta IP (Zərərli Server)</label><input id="sp-fakeip" value="10.10.10.99" placeholder="attacker IP"></div>
-          <div class="field"><label>Hücum Üsulu</label>
+          <div class="field"><label>Target Domain</label><input id="sp-domain" value="bank.example.com"></div>
+          <div class="field"><label>Fake IP (Malicious Server)</label><input id="sp-fakeip" value="10.10.10.99"></div>
+          <div class="field"><label>Attack Method</label>
             <select id="sp-method">
               <option>Transaction ID Brute Force</option>
               <option>Kaminsky Attack</option>
@@ -652,40 +345,37 @@
               <option>ARP Poisoning + DNS</option>
             </select>
           </div>
-          <div class="field"><label>Paket/saniyə</label><input id="sp-rate" value="5000" type="number"></div>
+          <div class="field"><label>Packets / Second</label><input id="sp-rate" value="5000" type="number"></div>
         </div>
         <div class="btn-row">
-          <button class="btn btn-red" onclick="runSpoofing()">▶ SİMULYASİYA BAŞLAT</button>
-          <button class="btn btn-cyan" onclick="stopSim('spoof')">■ DAYANDIR</button>
-          <button class="btn btn-green" onclick="clearLog('spoof-log')">✕ TƏMİZLƏ</button>
+          <button class="btn btn-red" onclick="runSpoofing()">▶ START SIMULATION</button>
+          <button class="btn btn-cyan" onclick="stopSim('spoof')">■ STOP</button>
+          <button class="btn btn-green" onclick="clearLog('spoof-log')">✕ CLEAR</button>
         </div>
         <div class="progress-wrap">
-          <div class="progress-label"><span id="sp-status">Hazır</span><span id="sp-pct">0%</span></div>
+          <div class="progress-label"><span id="sp-status">Ready</span><span id="sp-pct">0%</span></div>
           <div class="progress-bar"><div class="progress-fill fill-red" id="sp-bar"></div></div>
         </div>
       </div>
-
-      <div class="log-stream" id="spoof-log"><span style="color:var(--muted)">// Simulyasiya loqları burada görünəcək...</span></div>
+      <div class="log-stream" id="spoof-log"><span style="color:var(--muted)">// Simulation logs will appear here...</span></div>
     </div>
 
-    <!-- ═══════════ DNS FLOOD ═══════════ -->
+    <!-- DNS FLOOD -->
     <div class="section animate-in" id="flood">
       <div class="section-header">
         <h1>🌊 DNS FLOOD LAB</h1>
-        <p>Kütləvi DNS sorğuları ilə server resurslarını tükətmə hücumu.</p>
+        <p>Exhausting server resources with massive DNS query volumes.</p>
       </div>
-
       <div class="info-box warn">
-        DNS Flood — DoS/DDoS hücumunun klassik formasıdır. DNS server sorğuları emal edərkən CPU/RAM
-        resursları tükənir, legitim istifadəçilər cavab ala bilmir. UDP-nin spoofing imkanı bu hücumu
-        daha da gücləndirir.
+        DNS Flood is a classic form of DoS/DDoS. As the DNS server processes each request, CPU and RAM
+        resources are exhausted until legitimate users cannot receive responses.
+        UDP's spoofability makes this attack significantly more powerful.
       </div>
-
       <div class="sim-panel">
-        <div class="sim-title">🌊 Flood Simulyatoru</div>
+        <div class="sim-title">🌊 Flood Simulator</div>
         <div class="sim-grid">
-          <div class="field"><label>Hədəf DNS Server</label><input id="fl-target" value="192.168.1.1" placeholder="DNS server IP"></div>
-          <div class="field"><label>Flood Tipi</label>
+          <div class="field"><label>Target DNS Server</label><input id="fl-target" value="192.168.1.1"></div>
+          <div class="field"><label>Flood Type</label>
             <select id="fl-type">
               <option>UDP Flood (Port 53)</option>
               <option>TCP SYN Flood</option>
@@ -693,176 +383,166 @@
               <option>NXDOMAIN Flood</option>
             </select>
           </div>
-          <div class="field"><label>Sorğu/saniyə</label><input id="fl-qps" value="10000" type="number"></div>
-          <div class="field"><label>Müddət (saniyə)</label><input id="fl-dur" value="30" type="number"></div>
+          <div class="field"><label>Queries / Second</label><input id="fl-qps" value="10000" type="number"></div>
+          <div class="field"><label>Duration (seconds)</label><input id="fl-dur" value="30" type="number"></div>
         </div>
         <div class="btn-row">
-          <button class="btn btn-red" onclick="runFlood()">▶ FLOOD BAŞLAT</button>
-          <button class="btn btn-cyan" onclick="stopSim('flood')">■ DAYANDIR</button>
+          <button class="btn btn-red" onclick="runFlood()">▶ START FLOOD</button>
+          <button class="btn btn-cyan" onclick="stopSim('flood')">■ STOP</button>
         </div>
         <div class="progress-wrap" style="margin-top:12px">
-          <div class="progress-label"><span id="fl-status">Hazır</span><span id="fl-qcount">0 sorğu</span></div>
+          <div class="progress-label"><span id="fl-status">Ready</span><span id="fl-qcount">0 queries</span></div>
           <div class="progress-bar"><div class="progress-fill fill-red" id="fl-bar"></div></div>
         </div>
       </div>
-
-      <!-- Paket sayacı -->
       <div class="stats-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
-        <div class="stat-card stat-red"><div class="stat-num" id="fl-total">0</div><div class="stat-lbl">PAKET GÖNDƏRİLDİ</div></div>
-        <div class="stat-card stat-yellow"><div class="stat-num" id="fl-drop">0%</div><div class="stat-lbl">PAKET İTKİSİ</div></div>
-        <div class="stat-card stat-cyan"><div class="stat-num" id="fl-lat">0ms</div><div class="stat-lbl">CAVAB GECİKMƏSİ</div></div>
+        <div class="stat-card stat-red"><div class="stat-num" id="fl-total">0</div><div class="stat-lbl">PACKETS SENT</div></div>
+        <div class="stat-card stat-yellow"><div class="stat-num" id="fl-drop">0%</div><div class="stat-lbl">PACKET LOSS</div></div>
+        <div class="stat-card stat-cyan"><div class="stat-num" id="fl-lat">0ms</div><div class="stat-lbl">RESPONSE LATENCY</div></div>
       </div>
-      <div class="log-stream" id="flood-log"><span style="color:var(--muted)">// Flood loqları burada görünəcək...</span></div>
+      <div class="log-stream" id="flood-log"><span style="color:var(--muted)">// Flood logs will appear here...</span></div>
     </div>
 
-    <!-- ═══════════ AMPLIFICATION ═══════════ -->
+    <!-- AMPLIFICATION -->
     <div class="section animate-in" id="amplification">
       <div class="section-header">
         <h1>📡 DNS AMPLIFICATION LAB</h1>
-        <p>Kiçik sorğularla böyük trafik yaratma — 70x gücləndirilmiş DDoS.</p>
+        <p>Generating massive traffic from tiny queries — up to 75x amplified DDoS.</p>
       </div>
-
       <div class="info-box">
-        <strong style="color:var(--orange)">Amplification faktoru:</strong><br>
-        DNS ANY sorğusu: ~40 bayt → Cavab: ~3000 bayt = <strong style="color:var(--red)">75x amplification!</strong><br>
-        Hücumçu qurban IP-ni spoofing edərək open resolver-lərə kiçik sorğu göndərir.
-        Cavablar qurbana yönləndirilir — böyük bandwidth tükənir.
+        <strong style="color:var(--orange)">Amplification factor:</strong><br>
+        DNS ANY query: ~40 bytes → Response: ~3,000 bytes = <strong style="color:var(--red)">75x amplification!</strong><br>
+        The attacker sends small queries to open resolvers while spoofing the victim's source IP.
+        All large responses are directed at the victim, saturating their bandwidth.
       </div>
-
       <div class="sim-panel">
-        <div class="sim-title">📡 Amplification Kalkulyatoru + Simulyator</div>
+        <div class="sim-title">📡 Amplification Calculator + Simulator</div>
         <div class="sim-grid">
-          <div class="field"><label>Qurban IP (Spoofed Src)</label><input id="amp-victim" value="203.0.113.5" placeholder="victim IP"></div>
-          <div class="field"><label>Open Resolver Sayı</label><input id="amp-resolvers" value="100" type="number"></div>
-          <div class="field"><label>Sorğu Tipi</label>
+          <div class="field"><label>Victim IP (Spoofed Source)</label><input id="amp-victim" value="203.0.113.5"></div>
+          <div class="field"><label>Number of Open Resolvers</label><input id="amp-resolvers" value="100" type="number"></div>
+          <div class="field"><label>Query Type</label>
             <select id="amp-qtype">
-              <option value="75">ANY (75x)</option>
-              <option value="50">TXT (50x)</option>
-              <option value="30">MX (30x)</option>
-              <option value="20">DNSKEY (20x)</option>
+              <option value="75">ANY (75x amplification)</option>
+              <option value="50">TXT (50x amplification)</option>
+              <option value="30">MX (30x amplification)</option>
+              <option value="20">DNSKEY (20x amplification)</option>
             </select>
           </div>
-          <div class="field"><label>Sorğu/saniyə (hər resolver)</label><input id="amp-qps" value="1000" type="number"></div>
+          <div class="field"><label>Queries / Second (per resolver)</label><input id="amp-qps" value="1000" type="number"></div>
         </div>
         <div id="amp-calc" style="background:#020408;border:1px solid var(--border);border-radius:4px;padding:14px;font-size:.75rem;margin-bottom:16px;"></div>
         <div class="btn-row">
-          <button class="btn btn-cyan" onclick="calcAmplification()">📊 HESABLA</button>
-          <button class="btn btn-red" onclick="runAmplification()">▶ SİMULYASİYA</button>
-          <button class="btn btn-green" onclick="clearLog('amp-log')">✕ TƏMİZLƏ</button>
+          <button class="btn btn-cyan" onclick="calcAmplification()">📊 CALCULATE</button>
+          <button class="btn btn-red" onclick="runAmplification()">▶ SIMULATE</button>
+          <button class="btn btn-green" onclick="clearLog('amp-log')">✕ CLEAR</button>
         </div>
         <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill fill-cyan" id="amp-bar"></div></div></div>
       </div>
-      <div class="log-stream" id="amp-log"><span style="color:var(--muted)">// Amplification loqları...</span></div>
+      <div class="log-stream" id="amp-log"><span style="color:var(--muted)">// Amplification logs will appear here...</span></div>
     </div>
 
-    <!-- ═══════════ CACHE POISONING ═══════════ -->
+    <!-- CACHE POISONING -->
     <div class="section animate-in" id="cache">
       <div class="section-header">
         <h1>💾 DNS CACHE POISONING</h1>
-        <p>Kaminsky Attack — DNS resolver keşinə saxta qeydlər yeritmə.</p>
+        <p>Kaminsky Attack — injecting forged records into a DNS resolver's cache.</p>
       </div>
-
       <div class="info-box">
-        <strong style="color:var(--yellow)">Kaminsky Hücumu (2008):</strong><br>
-        Dan Kaminsky-nin kəşf etdiyi bu zəiflik Transaction ID (0-65535) + source port kombinasiyasından istifadə edir.
-        Hücumçu eyni anda çoxlu saxta cavab göndərərək doğru TxID-ni tapmağa çalışır.
+        <strong style="color:var(--yellow)">The Kaminsky Attack (2008):</strong><br>
+        Discovered by Dan Kaminsky, this critical vulnerability exploits the 16-bit Transaction ID space (0–65535)
+        combined with source port randomization. The attacker fires thousands of forged replies simultaneously,
+        racing to match the correct TxID before the legitimate DNS response arrives.
       </div>
-
       <div class="sim-panel">
-        <div class="sim-title">💾 Cache Poisoning Simulyatoru</div>
+        <div class="sim-title">💾 Cache Poisoning Simulator</div>
         <div class="sim-grid">
-          <div class="field"><label>Hədəf Resolver</label><input id="cp-resolver" value="192.168.1.53" placeholder="resolver IP"></div>
-          <div class="field"><label>Zəhərlənəcək Domain</label><input id="cp-domain" value="secure-bank.az" placeholder="target domain"></div>
-          <div class="field"><label>Saxta NS Server</label><input id="cp-fakens" value="ns.attacker.az" placeholder="fake nameserver"></div>
-          <div class="field"><label>TxID Brute Force Sürəti</label>
+          <div class="field"><label>Target Resolver</label><input id="cp-resolver" value="192.168.1.53"></div>
+          <div class="field"><label>Domain to Poison</label><input id="cp-domain" value="secure-bank.com"></div>
+          <div class="field"><label>Fake NS Server</label><input id="cp-fakens" value="ns.attacker.com"></div>
+          <div class="field"><label>TxID Brute Force Speed</label>
             <select id="cp-speed">
-              <option>Yavaş (1000/sn)</option>
-              <option>Orta (10000/sn)</option>
-              <option selected>Sürətli (50000/sn)</option>
+              <option>Slow (1,000/s)</option>
+              <option>Medium (10,000/s)</option>
+              <option selected>Fast (50,000/s)</option>
             </select>
           </div>
         </div>
-
         <div style="background:#020408;border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:16px;font-size:.75rem">
-          <div style="color:var(--yellow);margin-bottom:8px">📊 TxID Axtarış Proqnozu</div>
+          <div style="color:var(--yellow);margin-bottom:8px">📊 TxID Search Forecast</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;color:var(--muted)">
-            <span>Mümkün TxID sayı:</span><span style="color:var(--cyan)">65,536</span>
-            <span>Orta tapma vaxtı:</span><span style="color:var(--green)">~6.5 saniyə</span>
-            <span>DNSSEC olmadan:</span><span style="color:var(--red)">Həssas ✓</span>
-            <span>DNSSEC ilə:</span><span style="color:var(--green)">Qorunan ✗</span>
+            <span>Total TxID space:</span><span style="color:var(--cyan)">65,536 values</span>
+            <span>Expected time to crack:</span><span style="color:var(--green)">~6.5 seconds</span>
+            <span>Without DNSSEC:</span><span style="color:var(--red)">Vulnerable ✓</span>
+            <span>With DNSSEC:</span><span style="color:var(--green)">Protected ✗</span>
           </div>
         </div>
-
         <div class="btn-row">
-          <button class="btn btn-red" onclick="runCachePoisoning()">▶ ZƏHƏRLƏNMƏNİ BAŞLAT</button>
-          <button class="btn btn-cyan" onclick="stopSim('cache')">■ DAYANDIR</button>
+          <button class="btn btn-red" onclick="runCachePoisoning()">▶ START POISONING</button>
+          <button class="btn btn-cyan" onclick="stopSim('cache')">■ STOP</button>
         </div>
         <div class="progress-wrap">
-          <div class="progress-label"><span id="cp-status">Hazır</span><span id="cp-txid">TxID: -</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-yellow" id="cp-bar" style="background:linear-gradient(90deg,var(--yellow),#ffaa00)"></div></div>
+          <div class="progress-label"><span id="cp-status">Ready</span><span id="cp-txid">TxID: -</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="cp-bar" style="background:linear-gradient(90deg,var(--yellow),#ffaa00)"></div></div>
         </div>
       </div>
-      <div class="log-stream" id="cache-log"><span style="color:var(--muted)">// Cache poisoning loqları...</span></div>
+      <div class="log-stream" id="cache-log"><span style="color:var(--muted)">// Cache poisoning logs will appear here...</span></div>
     </div>
 
-    <!-- ═══════════ NXDOMAIN ═══════════ -->
+    <!-- NXDOMAIN -->
     <div class="section animate-in" id="nxdomain">
       <div class="section-header">
         <h1>❌ NXDOMAIN ATTACK LAB</h1>
-        <p>Mövcud olmayan domain sorğuları ilə DNS infrastrukturunu həddindən artıq yükləmə.</p>
+        <p>Overloading DNS infrastructure with queries for non-existent domains.</p>
       </div>
-
       <div class="info-box">
-        NXDOMAIN hücumunda hücumçu DNS serverinə saysız-hesabsız mövcud olmayan domain sorğusu göndərir.
-        Server hər sorğu üçün root/TLD serverlərə müraciət etməli olur — <strong style="color:var(--red)">upstream yükü artır</strong>.
+        In an NXDOMAIN attack, the attacker floods the DNS server with queries for domains that don't exist.
+        For every query, the resolver must contact root/TLD servers upstream — 
+        <strong style="color:var(--red)">dramatically increasing upstream load</strong> and starving legitimate queries.
       </div>
-
       <div class="sim-panel">
         <div class="sim-title">❌ NXDOMAIN Generator</div>
         <div class="sim-grid">
-          <div class="field"><label>Hədəf DNS</label><input id="nx-target" value="192.168.1.1" placeholder="DNS server IP"></div>
-          <div class="field"><label>Domain Şablonu</label><input id="nx-pattern" value="random-{RAND}.notexist.az" placeholder="pattern"></div>
-          <div class="field"><label>Sorğu/saniyə</label><input id="nx-qps" value="5000" type="number"></div>
-          <div class="field"><label>Randomizasiya</label>
+          <div class="field"><label>Target DNS Server</label><input id="nx-target" value="192.168.1.1"></div>
+          <div class="field"><label>Domain Pattern</label><input id="nx-pattern" value="random-{RAND}.notexist.com"></div>
+          <div class="field"><label>Queries / Second</label><input id="nx-qps" value="5000" type="number"></div>
+          <div class="field"><label>Randomization Strategy</label>
             <select id="nx-rand">
-              <option>Tam Random</option>
+              <option>Fully Random</option>
               <option>Dictionary Based</option>
-              <option>Alphanumeric</option>
+              <option>Alphanumeric Only</option>
             </select>
           </div>
         </div>
         <div class="btn-row">
-          <button class="btn btn-red" onclick="runNxdomain()">▶ BAŞLAT</button>
-          <button class="btn btn-cyan" onclick="stopSim('nxdomain')">■ DAYANDIR</button>
-          <button class="btn btn-green" onclick="clearLog('nx-log')">✕ TƏMİZLƏ</button>
+          <button class="btn btn-red" onclick="runNxdomain()">▶ START</button>
+          <button class="btn btn-cyan" onclick="stopSim('nxdomain')">■ STOP</button>
+          <button class="btn btn-green" onclick="clearLog('nx-log')">✕ CLEAR</button>
         </div>
         <div class="progress-wrap">
-          <div class="progress-label"><span id="nx-status">Hazır</span><span id="nx-count">0 sorğu</span></div>
+          <div class="progress-label"><span id="nx-status">Ready</span><span id="nx-count">0 queries</span></div>
           <div class="progress-bar"><div class="progress-fill" id="nx-bar" style="background:linear-gradient(90deg,var(--purple),#d855f7)"></div></div>
         </div>
       </div>
-      <div class="log-stream" id="nx-log"><span style="color:var(--muted)">// NXDOMAIN loqları...</span></div>
+      <div class="log-stream" id="nx-log"><span style="color:var(--muted)">// NXDOMAIN logs will appear here...</span></div>
     </div>
 
-    <!-- ═══════════ DEFENSE ═══════════ -->
+    <!-- DEFENSE -->
     <div class="section animate-in" id="defense">
       <div class="section-header">
-        <h1>🛡 MÜDAFİƏ STRATEGİYALARI</h1>
-        <p>DNS hücumlarına qarşı sənaye standartı müdafiə texnikaları.</p>
+        <h1>🛡 DEFENSE STRATEGIES</h1>
+        <p>Industry-standard techniques for protecting DNS infrastructure.</p>
       </div>
-
       <div class="cards" style="grid-template-columns:1fr 1fr">
         <div class="card" style="--accent:var(--green)">
-          <div class="card-icon">🔐</div>
-          <div class="card-title">DNSSEC</div>
-          <div class="card-desc">Kriptoqrafik imzalarla DNS cavablarının autentifikasiyası. Cache Poisoning-ə qarşı ən effektiv müdafiə. RRSIG, NSEC, DS qeydlərindən istifadə edir.</div>
-          <pre style="margin-top:10px;font-size:.65rem;color:var(--green);background:#020408;padding:8px;border-radius:4px">dnssec-keygen -a RSASHA256 -b 2048 -n ZONE example.az
-dnssec-signzone -A -3 $(head -c 1000 /dev/random | sha1sum | cut -b 1-16) example.az</pre>
+          <div class="card-icon">🔐</div><div class="card-title">DNSSEC</div>
+          <div class="card-desc">Cryptographic signing of DNS responses. The most effective defense against Cache Poisoning. Uses RRSIG, NSEC, and DS record types.</div>
+          <pre style="margin-top:10px;font-size:.65rem;color:var(--green);background:#020408;padding:8px;border-radius:4px">dnssec-keygen -a RSASHA256 -b 2048 -n ZONE example.com
+dnssec-signzone -A -3 $(head -c 1000 /dev/random \
+  | sha1sum | cut -b 1-16) example.com</pre>
         </div>
         <div class="card cyan">
-          <div class="card-icon">📊</div>
-          <div class="card-title">Rate Limiting (RRL)</div>
-          <div class="card-desc">BIND Response Rate Limiting — eyni IP-dən gələn həddindən artıq sorğuları məhdudlaşdırır. Amplification hücumlarına qarşı effektivdir.</div>
+          <div class="card-icon">📊</div><div class="card-title">Rate Limiting (RRL)</div>
+          <div class="card-desc">BIND Response Rate Limiting — throttles excessive queries from the same IP. Highly effective against amplification and flood attacks.</div>
           <pre style="margin-top:10px;font-size:.65rem;color:var(--cyan);background:#020408;padding:8px;border-radius:4px">rate-limit {
   responses-per-second 10;
   errors-per-second 5;
@@ -871,72 +551,61 @@ dnssec-signzone -A -3 $(head -c 1000 /dev/random | sha1sum | cut -b 1-16) exampl
 };</pre>
         </div>
         <div class="card yellow">
-          <div class="card-icon">🔥</div>
-          <div class="card-title">DNS Firewall (RPZ)</div>
-          <div class="card-desc">Response Policy Zone — zərərli domainlərə giriş bloklama. ISP-lər tərəfindən geniş istifadə olunur.</div>
-          <pre style="margin-top:10px;font-size:.65rem;color:var(--yellow);background:#020408;padding:8px;border-radius:4px">response-policy {
-  zone "rpz.blocklist";
-};
-; zone file:
+          <div class="card-icon">🔥</div><div class="card-title">DNS Firewall (RPZ)</div>
+          <div class="card-desc">Response Policy Zones — blocks resolution of malicious domains. Widely deployed at the ISP and enterprise level.</div>
+          <pre style="margin-top:10px;font-size:.65rem;color:var(--yellow);background:#020408;padding:8px;border-radius:4px">response-policy { zone "rpz.blocklist"; };
+; RPZ zone file:
 malware.example.com CNAME .
 *.malware.example.com CNAME .</pre>
         </div>
         <div class="card orange">
-          <div class="card-icon">🌐</div>
-          <div class="card-title">BCP38 Anti-Spoofing</div>
-          <div class="card-desc">ISP səviyyəsinde IP spoofing-in qarşısının alınması. Amplification hücumlarının kökündə dayanan problemi həll edir.</div>
+          <div class="card-icon">🌐</div><div class="card-title">BCP38 Anti-Spoofing</div>
+          <div class="card-desc">ISP-level ingress filtering to prevent IP address spoofing. Eliminates the root cause that enables amplification attacks.</div>
           <pre style="margin-top:10px;font-size:.65rem;color:var(--orange);background:#020408;padding:8px;border-radius:4px"># Cisco IOS
 ip verify unicast source reachable-via rx
-# iptables
+# Linux iptables
 -A PREROUTING -m rpfilter --invert -j DROP</pre>
         </div>
       </div>
-
       <div class="info-box" style="margin-top:16px">
-        <strong style="color:var(--green)">Tez Checklist:</strong><br>
-        ✅ DNSSEC aktivləşdir | ✅ Açıq resolver-ləri bağla | ✅ RRL konfiqurasiya et |
-        ✅ Monitoring qur (Nagios/Zabbix) | ✅ DoT/DoH (DNS over TLS/HTTPS) | ✅ Anycast infrastruktur
+        <strong style="color:var(--green)">Security Checklist:</strong><br>
+        ✅ Enable DNSSEC &nbsp;|&nbsp; ✅ Close open resolvers &nbsp;|&nbsp; ✅ Configure RRL &nbsp;|&nbsp;
+        ✅ Deploy monitoring (Nagios/Zabbix) &nbsp;|&nbsp; ✅ Enable DoT/DoH &nbsp;|&nbsp; ✅ Use Anycast infrastructure
       </div>
     </div>
 
-    <!-- ═══════════ TOOLS ═══════════ -->
+    <!-- TOOLS -->
     <div class="section animate-in" id="tools">
       <div class="section-header">
-        <h1>🔧 DNS ALƏTLƏRI</h1>
-        <p>Kali Linux və digər distrolarda istifadə edilən DNS audit alətləri.</p>
+        <h1>🔧 DNS TOOLS</h1>
+        <p>DNS audit and reconnaissance tools used in Kali Linux and other security distributions.</p>
       </div>
-
       <table class="data-table">
-        <thead><tr><th>Alət</th><th>Kateqoriya</th><th>İstifadə</th><th>Nümunə Komanda</th></tr></thead>
+        <thead><tr><th>Tool</th><th>Category</th><th>Usage</th><th>Example Command</th></tr></thead>
         <tbody>
-          <tr><td style="color:var(--green)">dig</td><td>Sorğu</td><td>DNS sorğusu, debug</td><td style="color:var(--cyan);font-size:.68rem">dig @8.8.8.8 example.az ANY +noall +answer</td></tr>
-          <tr><td style="color:var(--green)">nmap</td><td>Kəşfiyyat</td><td>DNS port scan</td><td style="color:var(--cyan);font-size:.68rem">nmap -sU -p 53 --script dns-* 192.168.1.0/24</td></tr>
-          <tr><td style="color:var(--yellow)">dnsenum</td><td>Enum</td><td>Subdomain bruteforce</td><td style="color:var(--cyan);font-size:.68rem">dnsenum --dnsserver 192.168.1.1 example.az</td></tr>
-          <tr><td style="color:var(--yellow)">fierce</td><td>Recon</td><td>DNS zone walking</td><td style="color:var(--cyan);font-size:.68rem">fierce --domain example.az</td></tr>
-          <tr><td style="color:var(--orange)">dnsrecon</td><td>Audit</td><td>Comprehensive DNS recon</td><td style="color:var(--cyan);font-size:.68rem">dnsrecon -d example.az -t axfr</td></tr>
+          <tr><td style="color:var(--green)">dig</td><td>Query</td><td>DNS lookup, debug</td><td style="color:var(--cyan);font-size:.68rem">dig @8.8.8.8 example.com ANY +noall +answer</td></tr>
+          <tr><td style="color:var(--green)">nmap</td><td>Recon</td><td>DNS port scan</td><td style="color:var(--cyan);font-size:.68rem">nmap -sU -p 53 --script dns-* 192.168.1.0/24</td></tr>
+          <tr><td style="color:var(--yellow)">dnsenum</td><td>Enumeration</td><td>Subdomain bruteforce</td><td style="color:var(--cyan);font-size:.68rem">dnsenum --dnsserver 192.168.1.1 example.com</td></tr>
+          <tr><td style="color:var(--yellow)">fierce</td><td>Recon</td><td>DNS zone walking</td><td style="color:var(--cyan);font-size:.68rem">fierce --domain example.com</td></tr>
+          <tr><td style="color:var(--orange)">dnsrecon</td><td>Audit</td><td>Comprehensive DNS recon</td><td style="color:var(--cyan);font-size:.68rem">dnsrecon -d example.com -t axfr</td></tr>
           <tr><td style="color:var(--red)">scapy</td><td>Packet Craft</td><td>Custom DNS packets</td><td style="color:var(--cyan);font-size:.68rem">send(IP(dst="target")/UDP()/DNS(rd=1,qd=DNSQR(qname="x")))</td></tr>
-          <tr><td style="color:var(--red)">hping3</td><td>Flood</td><td>UDP flood test</td><td style="color:var(--cyan);font-size:.68rem">hping3 --udp -p 53 --flood target.ip</td></tr>
-          <tr><td style="color:var(--purple)">dnschef</td><td>Proxy</td><td>Fake DNS server</td><td style="color:var(--cyan);font-size:.68rem">dnschef --fakeip 192.168.1.1 --fakedomains example.az</td></tr>
-          <tr><td style="color:var(--cyan)">Wireshark</td><td>Analiz</td><td>Paket analizi</td><td style="color:var(--cyan);font-size:.68rem">udp.port == 53 || tcp.port == 53</td></tr>
+          <tr><td style="color:var(--red)">hping3</td><td>Stress Test</td><td>UDP flood testing</td><td style="color:var(--cyan);font-size:.68rem">hping3 --udp -p 53 --flood target.ip</td></tr>
+          <tr><td style="color:var(--purple)">dnschef</td><td>Fake Server</td><td>DNS proxy / fake responses</td><td style="color:var(--cyan);font-size:.68rem">dnschef --fakeip 192.168.1.1 --fakedomains example.com</td></tr>
+          <tr><td style="color:var(--cyan)">Wireshark</td><td>Analysis</td><td>Packet capture &amp; analysis</td><td style="color:var(--cyan);font-size:.68rem">udp.port == 53 || tcp.port == 53</td></tr>
         </tbody>
       </table>
-
-      <!-- Interactive dig simulator -->
       <div class="sim-panel">
-        <div class="sim-title">⚡ İnteraktiv DNS Sorğu Simulyatoru</div>
+        <div class="sim-title">⚡ Interactive DNS Query Simulator</div>
         <div class="sim-grid">
           <div class="field"><label>DNS Server</label><input id="dig-server" value="8.8.8.8"></div>
           <div class="field"><label>Domain</label><input id="dig-domain" value="google.com"></div>
-          <div class="field"><label>Sorğu Tipi</label>
-            <select id="dig-type">
-              <option>A</option><option>AAAA</option><option>MX</option>
-              <option>NS</option><option>TXT</option><option>ANY</option><option>SOA</option>
-            </select>
+          <div class="field"><label>Query Type</label>
+            <select id="dig-type"><option>A</option><option>AAAA</option><option>MX</option><option>NS</option><option>TXT</option><option>ANY</option><option>SOA</option></select>
           </div>
           <div class="field"><label>Flags</label><input id="dig-flags" value="+noall +answer +stats"></div>
         </div>
         <div class="btn-row">
-          <button class="btn btn-green" onclick="runDig()">⚡ DIG ÇALIŞTIR</button>
+          <button class="btn btn-green" onclick="runDig()">⚡ RUN DIG</button>
           <button class="btn btn-cyan" onclick="runNslookup()">🔍 NSLOOKUP</button>
         </div>
       </div>
@@ -948,7 +617,7 @@ ip verify unicast source reachable-via rx
           <span class="term-title">tools@dns-lab:~$</span>
         </div>
         <div class="term-body" id="tools-term">
-          <div style="color:var(--muted)">// Sorğu nəticələri burada görünəcək...</div>
+          <div style="color:var(--muted)">// Query results will appear here...</div>
         </div>
       </div>
     </div>
@@ -957,22 +626,20 @@ ip verify unicast source reachable-via rx
 </div>
 
 <script>
-// ── CLOCK ──
-function updateClock(){
-  document.getElementById('clock').textContent = new Date().toLocaleTimeString('az-AZ');
-}
+// CLOCK
+function updateClock(){ document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-US'); }
 setInterval(updateClock, 1000); updateClock();
 
-// ── NAV ──
-function showSection(id){
+// NAV
+function showSection(id, el){
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const sec = document.getElementById(id);
-  if(sec) { sec.classList.add('active'); }
-  event.currentTarget && event.currentTarget.classList.add('active');
+  if(sec){ sec.classList.remove('animate-in'); void sec.offsetWidth; sec.classList.add('active','animate-in'); }
+  if(el) el.classList.add('active');
 }
 
-// ── TABS ──
+// TABS
 function switchTab(el, id){
   el.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
@@ -980,248 +647,196 @@ function switchTab(el, id){
   document.getElementById(id).classList.add('active');
 }
 
-// ── TERMINAL ──
+// TERMINAL
 const termCommands = {
-  'help': () => [
-    '<span class="out-info">Mövcud komandalar:</span>',
-    '<span class="out-data">  dig, nslookup, nmap, whois, ping, clear, help</span>'
-  ],
+  'help': () => ['<span class="out-info">Available commands:</span>','<span class="out-data">  dig, nslookup, ping, nmap, whoami, uname -a, ifconfig, clear, help</span>'],
   'clear': () => { document.getElementById('dashTerm').innerHTML = ''; return []; },
-  'ping hackinglayer.lab': () => [
-    '<span class="out-ok">PING hackinglayer.lab (192.168.1.100) 56 bytes of data.</span>',
-    '<span class="out-data">64 bytes from 192.168.1.100: icmp_seq=1 ttl=64 time=0.412 ms</span>',
-    '<span class="out-data">64 bytes from 192.168.1.100: icmp_seq=2 ttl=64 time=0.389 ms</span>',
-  ],
   'whoami': () => ['<span class="out-ok">root@dns-lab</span>'],
+  'uname -a': () => ['<span class="out-data">Linux dns-lab 5.15.0-kali3-amd64 #1 SMP Debian GNU/Linux x86_64 GNU/Linux</span>'],
+  'ifconfig': () => ['<span class="out-data">eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500</span>','<span class="out-data">&nbsp;&nbsp;&nbsp;&nbsp;inet 192.168.1.100 netmask 255.255.255.0 broadcast 192.168.1.255</span>'],
+  'ping hackinglayer.lab': () => ['<span class="out-ok">PING hackinglayer.lab (192.168.1.100)</span>','<span class="out-data">64 bytes from 192.168.1.100: icmp_seq=1 ttl=64 time=0.412 ms</span>','<span class="out-data">64 bytes from 192.168.1.100: icmp_seq=2 ttl=64 time=0.389 ms</span>'],
+  'nmap -sU -p 53 192.168.1.1': () => ['<span class="out-ok">Starting Nmap 7.94</span>','<span class="out-data">53/udp open domain</span>','<span class="out-ok">Nmap done: 1 IP address scanned</span>'],
 };
-
 function handleTerm(e){
   if(e.key !== 'Enter') return;
   const input = document.getElementById('termInput');
-  const val = input.value.trim();
-  if(!val) return;
+  const val = input.value.trim(); if(!val) return;
   const term = document.getElementById('dashTerm');
-  const cmdLine = document.createElement('div');
-  cmdLine.className = 'term-line';
-  cmdLine.innerHTML = `<span class="prompt">$</span><span class="cmd"> ${val}</span>`;
-  term.appendChild(cmdLine);
+  const line = document.createElement('div'); line.className = 'term-line';
+  line.innerHTML = `<span class="prompt">$</span><span class="cmd"> ${val}</span>`;
+  term.appendChild(line);
   const fn = termCommands[val];
-  const output = fn ? fn() : [`<span class="out-data">bash: ${val}: command simulated</span>`];
-  output.forEach(line => {
-    const div = document.createElement('div');
-    div.style.marginLeft = '16px';
-    div.innerHTML = line;
-    term.appendChild(div);
-  });
-  term.scrollTop = term.scrollHeight;
-  input.value = '';
+  const out = fn ? fn() : [`<span class="out-data">bash: ${val}: command simulated in sandbox</span>`];
+  out.forEach(o => { const d = document.createElement('div'); d.style.marginLeft='16px'; d.innerHTML=o; term.appendChild(d); });
+  term.scrollTop = term.scrollHeight; input.value = '';
 }
 
-// ── LOG HELPERS ──
+// LOG HELPERS
 let simTimers = {};
-function clearLog(id){ document.getElementById(id).innerHTML = '<span style="color:var(--muted)">// Loq təmizləndi...</span>'; }
-function appendLog(id, html){
-  const el = document.getElementById(id);
-  const div = document.createElement('div');
-  div.className = 'log-line';
-  div.innerHTML = html;
-  el.appendChild(div);
-  el.scrollTop = el.scrollHeight;
-}
-function ts(){ return `<span class="log-ts">[${new Date().toLocaleTimeString('az-AZ')}]</span>`; }
-function stopSim(key){ clearInterval(simTimers[key]); simTimers[key] = null; }
-function setBar(id, pct){ document.getElementById(id).style.width = pct + '%'; }
+function clearLog(id){ document.getElementById(id).innerHTML='<span style="color:var(--muted)">// Log cleared...</span>'; }
+function appendLog(id, html){ const el=document.getElementById(id); const d=document.createElement('div'); d.className='log-line'; d.innerHTML=html; el.appendChild(d); el.scrollTop=el.scrollHeight; }
+function ts(){ return `<span class="log-ts">[${new Date().toLocaleTimeString('en-US')}]</span>`; }
+function stopSim(k){ clearInterval(simTimers[k]); simTimers[k]=null; }
+function setBar(id,pct){ document.getElementById(id).style.width=pct+'%'; }
 
-// ── STATS ──
-let simCount = 0, pktCount = 0;
-function incStats(pkts=1){ simCount++; pktCount += pkts; document.getElementById('stat2').textContent = simCount; document.getElementById('stat3').textContent = pktCount.toLocaleString(); }
+// GLOBAL STATS
+let simCount=0, pktCount=0;
+function incStats(p=1){ simCount++; pktCount+=p; document.getElementById('stat2').textContent=simCount; document.getElementById('stat3').textContent=pktCount.toLocaleString(); }
 
-// ── SPOOFING SIM ──
+// SPOOFING
 function runSpoofing(){
-  const domain = document.getElementById('sp-domain').value;
-  const fakeip = document.getElementById('sp-fakeip').value;
-  const method = document.getElementById('sp-method').value;
-  const rate   = parseInt(document.getElementById('sp-rate').value);
-  const log = 'spoof-log';
-  clearLog(log);
-  appendLog(log, `${ts()} <span class="log-level-info">[INIT]</span> Hücum başladılır... Hədəf: <span style="color:var(--cyan)">${domain}</span>`);
-  appendLog(log, `${ts()} <span class="log-level-info">[MODE]</span> Üsul: ${method}`);
-  let pct = 0; let found = false;
-  setBar('sp-bar', 0); incStats();
-  simTimers['spoof'] = setInterval(() => {
-    pct = Math.min(pct + Math.random() * 4, 100);
-    setBar('sp-bar', pct);
-    document.getElementById('sp-pct').textContent = Math.round(pct) + '%';
-    const txid = Math.floor(Math.random() * 65535);
-    const src = `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+  const domain=document.getElementById('sp-domain').value;
+  const fakeip=document.getElementById('sp-fakeip').value;
+  const method=document.getElementById('sp-method').value;
+  const rate=parseInt(document.getElementById('sp-rate').value);
+  clearLog('spoof-log');
+  appendLog('spoof-log',`${ts()} <span class="log-level-info">[INIT]</span> Attack starting... Target: <span style="color:var(--cyan)">${domain}</span>`);
+  appendLog('spoof-log',`${ts()} <span class="log-level-info">[MODE]</span> Method: ${method} | Rate: ${rate.toLocaleString()} pkt/s`);
+  let pct=0,found=false; setBar('sp-bar',0); incStats();
+  simTimers['spoof']=setInterval(()=>{
+    pct=Math.min(pct+Math.random()*4,100); setBar('sp-bar',pct);
+    document.getElementById('sp-pct').textContent=Math.round(pct)+'%';
+    const txid=Math.floor(Math.random()*65535);
+    const src=`${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
     incStats(rate);
-    if(Math.random() > 0.85) appendLog(log, `${ts()} <span class="log-level-warn">[TRY]</span> TxID:<span style="color:var(--yellow)">${txid}</span> src:<span style="color:var(--cyan)">${src}</span> → <span style="color:var(--red)">${domain}</span> fake-A:${fakeip}`);
-    if(pct >= 100 && !found){
-      found = true;
-      const finalTxid = Math.floor(Math.random() * 65535);
-      appendLog(log, `${ts()} <span class="log-level-crit">[SUCCESS]</span> ✓ Cache zəhərləndi! TxID:<span style="color:var(--red)">${finalTxid}</span> — ${domain} → <span style="color:var(--red)">${fakeip}</span>`);
-      appendLog(log, `${ts()} <span class="log-level-crit">[RESULT]</span> İstifadəçilər ${domain} domeninə daxil olarkən SAXTA serverə yönləndirilir.`);
-      document.getElementById('sp-status').textContent = '✓ KEŞ ZƏHƏRLƏNDİ';
-      stopSim('spoof');
+    if(Math.random()>.85) appendLog('spoof-log',`${ts()} <span class="log-level-warn">[TRY]</span> TxID:<span style="color:var(--yellow)">${txid}</span> src:<span style="color:var(--cyan)">${src}</span> → <span style="color:var(--red)">${domain}</span> → fake-A: ${fakeip}`);
+    if(pct>=100&&!found){ found=true;
+      const ftxid=Math.floor(Math.random()*65535);
+      appendLog('spoof-log',`${ts()} <span class="log-level-crit">[SUCCESS]</span> ✓ Cache poisoned! TxID:<span style="color:var(--red)">${ftxid}</span> matched — ${domain} → <span style="color:var(--red)">${fakeip}</span>`);
+      appendLog('spoof-log',`${ts()} <span class="log-level-crit">[IMPACT]</span> All users visiting ${domain} are now silently redirected to the fake server.`);
+      document.getElementById('sp-status').textContent='✓ CACHE POISONED'; stopSim('spoof');
     }
-  }, 300);
+  },300);
 }
 
-// ── FLOOD SIM ──
+// FLOOD
 function runFlood(){
-  const target = document.getElementById('fl-target').value;
-  const type   = document.getElementById('fl-type').value;
-  const qps    = parseInt(document.getElementById('fl-qps').value);
-  const dur    = parseInt(document.getElementById('fl-dur').value) * 1000;
-  clearLog('flood-log');
-  let total = 0, pct = 0, elapsed = 0;
-  const step = 200;
-  incStats();
-  appendLog('flood-log', `${ts()} <span class="log-level-crit">[FLOOD]</span> ${type} başladıldı → ${target} @ ${qps.toLocaleString()} q/s`);
-  simTimers['flood'] = setInterval(() => {
-    elapsed += step;
-    const sent = Math.floor(qps * step / 1000);
-    total += sent;
-    pct = Math.min((elapsed / dur) * 100, 100);
-    setBar('fl-bar', pct);
-    const drop = Math.min(Math.floor(pct * 0.8), 95);
-    const lat  = Math.floor(100 + pct * 20);
-    document.getElementById('fl-total').textContent = total.toLocaleString();
-    document.getElementById('fl-drop').textContent  = drop + '%';
-    document.getElementById('fl-lat').textContent   = lat + 'ms';
-    document.getElementById('fl-qcount').textContent = total.toLocaleString() + ' sorğu';
+  const target=document.getElementById('fl-target').value;
+  const type=document.getElementById('fl-type').value;
+  const qps=parseInt(document.getElementById('fl-qps').value);
+  const dur=parseInt(document.getElementById('fl-dur').value)*1000;
+  clearLog('flood-log'); let total=0,pct=0,elapsed=0; const step=200; incStats();
+  appendLog('flood-log',`${ts()} <span class="log-level-crit">[FLOOD]</span> ${type} initiated → ${target} @ ${qps.toLocaleString()} q/s`);
+  simTimers['flood']=setInterval(()=>{
+    elapsed+=step; const sent=Math.floor(qps*step/1000); total+=sent;
+    pct=Math.min((elapsed/dur)*100,100); setBar('fl-bar',pct);
+    const drop=Math.min(Math.floor(pct*.8),95); const lat=Math.floor(100+pct*20);
+    document.getElementById('fl-total').textContent=total.toLocaleString();
+    document.getElementById('fl-drop').textContent=drop+'%';
+    document.getElementById('fl-lat').textContent=lat+'ms';
+    document.getElementById('fl-qcount').textContent=total.toLocaleString()+' queries';
     incStats(sent);
-    if(Math.random() > 0.6){
-      const lvl = drop > 70 ? 'crit' : drop > 40 ? 'warn' : 'info';
-      appendLog('flood-log', `${ts()} <span class="log-level-${lvl}">[PKT]</span> Göndərildi:${sent} | Cəmi:${total.toLocaleString()} | İtki:${drop}% | Gecikmə:${lat}ms`);
+    if(Math.random()>.6){ const lvl=drop>70?'crit':drop>40?'warn':'info';
+      appendLog('flood-log',`${ts()} <span class="log-level-${lvl}">[PKT]</span> Sent:${sent} | Total:${total.toLocaleString()} | Loss:${drop}% | Latency:${lat}ms`);
     }
-    if(pct >= 100){
-      appendLog('flood-log', `${ts()} <span class="log-level-crit">[DONE]</span> Flood tamamlandı. Cəmi ${total.toLocaleString()} paket. Server cavab müddəti ${lat}ms-ə çatdı.`);
-      stopSim('flood');
-    }
-  }, step);
+    if(pct>=100){ appendLog('flood-log',`${ts()} <span class="log-level-crit">[DONE]</span> Flood complete. ${total.toLocaleString()} packets sent. Server latency reached ${lat}ms.`); document.getElementById('fl-status').textContent='Complete'; stopSim('flood'); }
+  },step);
 }
 
-// ── AMPLIFICATION ──
+// AMPLIFICATION
 function calcAmplification(){
-  const resolvers = parseInt(document.getElementById('amp-resolvers').value);
-  const factor    = parseInt(document.getElementById('amp-qtype').value);
-  const qps       = parseInt(document.getElementById('amp-qps').value);
-  const reqSize   = 40;
-  const respSize  = reqSize * factor;
-  const totalBwIn  = (resolvers * qps * reqSize * 8 / 1e6).toFixed(2);
-  const totalBwOut = (resolvers * qps * respSize * 8 / 1e6).toFixed(2);
-  document.getElementById('amp-calc').innerHTML = `
+  const resolvers=parseInt(document.getElementById('amp-resolvers').value);
+  const factor=parseInt(document.getElementById('amp-qtype').value);
+  const qps=parseInt(document.getElementById('amp-qps').value);
+  const bwIn=(resolvers*qps*40*8/1e6).toFixed(2);
+  const bwOut=(resolvers*qps*40*factor*8/1e6).toFixed(2);
+  document.getElementById('amp-calc').innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div><span style="color:var(--muted)">Hücumçu trafiki:</span><br><span style="color:var(--green);font-size:1rem">${totalBwIn} Mbit/s</span></div>
-      <div><span style="color:var(--muted)">Qurban trafiki:</span><br><span style="color:var(--red);font-size:1.2rem">${totalBwOut} Mbit/s</span></div>
-      <div><span style="color:var(--muted)">Amplification faktoru:</span><br><span style="color:var(--orange);font-size:1rem">${factor}x</span></div>
-      <div><span style="color:var(--muted)">Resolver sayı:</span><br><span style="color:var(--cyan)">${resolvers.toLocaleString()}</span></div>
+      <div><span style="color:var(--muted)">Attacker bandwidth used:</span><br><span style="color:var(--green);font-size:1rem">${bwIn} Mbit/s</span></div>
+      <div><span style="color:var(--muted)">Victim bandwidth flooded:</span><br><span style="color:var(--red);font-size:1.2rem">${bwOut} Mbit/s</span></div>
+      <div><span style="color:var(--muted)">Amplification factor:</span><br><span style="color:var(--orange);font-size:1rem">${factor}x</span></div>
+      <div><span style="color:var(--muted)">Open resolvers used:</span><br><span style="color:var(--cyan)">${resolvers.toLocaleString()}</span></div>
     </div>`;
 }
 function runAmplification(){
-  calcAmplification();
-  clearLog('amp-log');
-  const factor = parseInt(document.getElementById('amp-qtype').value);
-  incStats();
-  let pct = 0;
-  appendLog('amp-log', `${ts()} <span class="log-level-crit">[AMP]</span> Amplification hücumu başladı — Faktor: <span style="color:var(--orange)">${factor}x</span>`);
-  simTimers['amp'] = setInterval(() => {
-    pct = Math.min(pct + 2, 100);
-    setBar('amp-bar', pct);
-    const resolver = `8.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
-    incStats(100);
-    if(Math.random() > 0.5) appendLog('amp-log', `${ts()} <span class="log-level-warn">[RELAY]</span> Open Resolver:<span style="color:var(--cyan)">${resolver}</span> → Qurban: 203.0.113.5 | ${factor*40} bayt cavab`);
-    if(pct >= 100){ appendLog('amp-log', `${ts()} <span class="log-level-crit">[DONE]</span> Hücum tamamlandı. Qurbanın internet xətti doydu.`); stopSim('amp'); }
-  }, 150);
+  calcAmplification(); clearLog('amp-log');
+  const factor=parseInt(document.getElementById('amp-qtype').value);
+  const victim=document.getElementById('amp-victim').value;
+  incStats(); let pct=0;
+  appendLog('amp-log',`${ts()} <span class="log-level-crit">[AMP]</span> Amplification attack started — Factor: <span style="color:var(--orange)">${factor}x</span>`);
+  appendLog('amp-log',`${ts()} <span class="log-level-warn">[SPOOF]</span> Spoofing source as victim: <span style="color:var(--red)">${victim}</span>`);
+  simTimers['amp']=setInterval(()=>{
+    pct=Math.min(pct+2,100); setBar('amp-bar',pct);
+    const r=`8.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`; incStats(100);
+    if(Math.random()>.5) appendLog('amp-log',`${ts()} <span class="log-level-warn">[RELAY]</span> Resolver:<span style="color:var(--cyan)">${r}</span> → Victim:${victim} | ${factor*40} byte response delivered`);
+    if(pct>=100){ appendLog('amp-log',`${ts()} <span class="log-level-crit">[DONE]</span> Attack complete. Victim's upstream link saturated.`); stopSim('amp'); }
+  },150);
 }
 
-// ── CACHE POISONING ──
+// CACHE POISONING
 function runCachePoisoning(){
-  const domain = document.getElementById('cp-domain').value;
-  clearLog('cache-log');
-  let pct = 0; let txid = 0;
-  incStats();
-  appendLog('cache-log', `${ts()} <span class="log-level-info">[START]</span> ${domain} üçün TxID brute-force başladı...`);
-  simTimers['cache'] = setInterval(() => {
-    txid = Math.floor(Math.random() * 65535);
-    pct = Math.min(pct + Math.random() * 2.5, 100);
-    setBar('cp-bar', pct);
-    document.getElementById('cp-txid').textContent = 'TxID: ' + txid;
-    document.getElementById('cp-status').textContent = `Cəhd ${Math.round(pct * 655)} / 65535`;
+  const domain=document.getElementById('cp-domain').value;
+  const fakens=document.getElementById('cp-fakens').value;
+  clearLog('cache-log'); let pct=0,txid=0; incStats();
+  appendLog('cache-log',`${ts()} <span class="log-level-info">[START]</span> TxID brute-force initiated for <span style="color:var(--cyan)">${domain}</span>`);
+  simTimers['cache']=setInterval(()=>{
+    txid=Math.floor(Math.random()*65535); pct=Math.min(pct+Math.random()*2.5,100);
+    setBar('cp-bar',pct);
+    document.getElementById('cp-txid').textContent='TxID: '+txid;
+    document.getElementById('cp-status').textContent=`Attempt ${Math.round(pct*655).toLocaleString()} / 65,536`;
     incStats(500);
-    if(Math.random() > 0.8) appendLog('cache-log', `${ts()} <span class="log-level-warn">[TRY]</span> TxID:<span style="color:var(--yellow)">${txid}</span> → Saxta cavab göndərildi ns.attacker.az üçün`);
-    if(pct >= 100){
-      appendLog('cache-log', `${ts()} <span class="log-level-crit">[POISONED]</span> ✓ Resolver keşi zəhərləndi!`);
-      appendLog('cache-log', `${ts()} <span class="log-level-crit">[MAP]</span> ${domain} → ns.attacker.az (TTL: 86400)`);
-      appendLog('cache-log', `${ts()} <span class="log-level-crit">[IMPACT]</span> Bütün resolver istifadəçiləri saxta serverə yönləndirilir.`);
-      document.getElementById('cp-status').textContent = '✓ ZƏHƏRLƏNDİ';
-      stopSim('cache');
+    if(Math.random()>.8) appendLog('cache-log',`${ts()} <span class="log-level-warn">[TRY]</span> TxID:<span style="color:var(--yellow)">${txid}</span> → Forged reply injected, claiming NS is ${fakens}`);
+    if(pct>=100){
+      appendLog('cache-log',`${ts()} <span class="log-level-crit">[POISONED]</span> ✓ Resolver cache successfully poisoned!`);
+      appendLog('cache-log',`${ts()} <span class="log-level-crit">[MAPPING]</span> ${domain} → ${fakens} (TTL: 86400 seconds)`);
+      appendLog('cache-log',`${ts()} <span class="log-level-crit">[IMPACT]</span> All resolver clients are now silently redirected to the attacker-controlled nameserver.`);
+      document.getElementById('cp-status').textContent='✓ POISONED'; stopSim('cache');
     }
-  }, 200);
+  },200);
 }
 
-// ── NXDOMAIN ──
+// NXDOMAIN
 function runNxdomain(){
-  const target  = document.getElementById('nx-target').value;
-  const pattern = document.getElementById('nx-pattern').value;
-  const qps     = parseInt(document.getElementById('nx-qps').value);
-  clearLog('nx-log');
-  incStats();
-  let count = 0; let pct = 0;
-  appendLog('nx-log', `${ts()} <span class="log-level-info">[INIT]</span> NXDOMAIN hücumu: ${target} hədəfinə ${qps}/s`);
-  simTimers['nxdomain'] = setInterval(() => {
-    const rand = Math.random().toString(36).substring(2, 10);
-    const dom  = pattern.replace('{RAND}', rand);
-    count += qps / 5;
-    pct   = Math.min(pct + 1, 100);
-    setBar('nx-bar', pct);
-    document.getElementById('nx-count').textContent = Math.floor(count).toLocaleString() + ' sorğu';
-    document.getElementById('nx-status').textContent = `CPU Yükü: ${Math.min(Math.floor(pct * 0.9), 95)}%`;
-    incStats(Math.floor(qps / 5));
-    if(Math.random() > 0.5) appendLog('nx-log', `${ts()} <span class="log-level-warn">[NXDOMAIN]</span> <span style="color:var(--red)">${dom}</span> → NXDOMAIN (upstream sorğu gedir)`);
-    if(pct >= 100){ appendLog('nx-log', `${ts()} <span class="log-level-crit">[DONE]</span> DNS serveri həddindən artıq yükləndi. Legitim sorğular rədd edilir.`); stopSim('nxdomain'); }
-  }, 200);
+  const target=document.getElementById('nx-target').value;
+  const pattern=document.getElementById('nx-pattern').value;
+  const qps=parseInt(document.getElementById('nx-qps').value);
+  clearLog('nx-log'); incStats(); let count=0,pct=0;
+  appendLog('nx-log',`${ts()} <span class="log-level-info">[INIT]</span> NXDOMAIN attack targeting ${target} at ${qps.toLocaleString()}/s`);
+  simTimers['nxdomain']=setInterval(()=>{
+    const rand=Math.random().toString(36).substring(2,10);
+    const dom=pattern.replace('{RAND}',rand);
+    count+=qps/5; pct=Math.min(pct+1,100); setBar('nx-bar',pct);
+    document.getElementById('nx-count').textContent=Math.floor(count).toLocaleString()+' queries';
+    document.getElementById('nx-status').textContent=`Server CPU: ${Math.min(Math.floor(pct*.9),95)}%`;
+    incStats(Math.floor(qps/5));
+    if(Math.random()>.5) appendLog('nx-log',`${ts()} <span class="log-level-warn">[NXDOMAIN]</span> <span style="color:var(--red)">${dom}</span> → NXDOMAIN (upstream query forwarded to root)`);
+    if(pct>=100){ appendLog('nx-log',`${ts()} <span class="log-level-crit">[DONE]</span> DNS server overloaded — legitimate queries are being dropped.`); document.getElementById('nx-status').textContent='Server Unresponsive'; stopSim('nxdomain'); }
+  },200);
 }
 
-// ── DIG SIMULATOR ──
+// DIG / NSLOOKUP SIMULATOR
 function runDig(){
-  const server = document.getElementById('dig-server').value;
-  const domain = document.getElementById('dig-domain').value;
-  const type   = document.getElementById('dig-type').value;
-  const flags  = document.getElementById('dig-flags').value;
-  const term = document.getElementById('tools-term');
-  term.innerHTML = '';
-  const lines = [
+  const server=document.getElementById('dig-server').value;
+  const domain=document.getElementById('dig-domain').value;
+  const type=document.getElementById('dig-type').value;
+  const flags=document.getElementById('dig-flags').value;
+  const answers={A:'142.250.185.46',AAAA:'2404:6800:4004:80c::200e',MX:'10 smtp.google.com.',NS:'ns1.google.com.',TXT:'"v=spf1 include:_spf.google.com ~all"',ANY:'142.250.185.46',SOA:'ns1.google.com. dns-admin.google.com. 500372023 900 900 1800 60'};
+  document.getElementById('tools-term').innerHTML=[
     `<div class="term-line"><span class="prompt">$</span><span class="cmd"> dig @${server} ${domain} ${type} ${flags}</span></div>`,
     `<div style="color:var(--yellow)">; &lt;&lt;&gt;&gt; DiG 9.18.0 &lt;&lt;&gt;&gt; @${server} ${domain} ${type}</div>`,
     `<div style="color:var(--muted)">; (1 server found)</div>`,
     `<div style="color:var(--muted)">;; global options: +cmd</div>`,
-    `<div style="color:var(--info);color:var(--yellow)">;; ANSWER SECTION:</div>`,
-    `<div style="color:var(--text)">${domain}. 300 IN ${type} ${type === 'A' ? '142.250.185.46' : type === 'MX' ? '10 smtp.google.com.' : type === 'NS' ? 'ns1.google.com.' : '2404:6800:4004:80c::200e'}</div>`,
+    `<div style="color:var(--yellow)">;; ANSWER SECTION:</div>`,
+    `<div style="color:var(--text)">${domain}. 300 IN ${type} ${answers[type]||'142.250.185.46'}</div>`,
     `<div style="color:var(--muted)">;; Query time: ${Math.floor(Math.random()*50+10)} msec</div>`,
     `<div style="color:var(--muted)">;; SERVER: ${server}#53(${server}) (UDP)</div>`,
     `<div style="color:var(--muted)">;; WHEN: ${new Date().toUTCString()}</div>`,
     `<div style="color:var(--muted)">;; MSG SIZE rcvd: ${Math.floor(Math.random()*100+50)}</div>`,
-  ];
-  term.innerHTML = lines.join('');
+  ].join('');
 }
 function runNslookup(){
-  const server = document.getElementById('dig-server').value;
-  const domain = document.getElementById('dig-domain').value;
-  const term = document.getElementById('tools-term');
-  term.innerHTML = [
+  const server=document.getElementById('dig-server').value;
+  const domain=document.getElementById('dig-domain').value;
+  document.getElementById('tools-term').innerHTML=[
     `<div class="term-line"><span class="prompt">$</span><span class="cmd"> nslookup ${domain} ${server}</span></div>`,
     `<div style="color:var(--muted)">Server:\t\t${server}</div>`,
-    `<div style="color:var(--muted)">Address:\t${server}#53</div>`,
-    `<div></div>`,
+    `<div style="color:var(--muted)">Address:\t${server}#53</div>`,`<div></div>`,
     `<div style="color:var(--yellow)">Non-authoritative answer:</div>`,
     `<div style="color:var(--text)">Name:\t${domain}</div>`,
     `<div style="color:var(--green)">Address: 142.250.185.46</div>`,
   ].join('');
 }
 
-// ── INIT CALC ──
 calcAmplification();
 </script>
 </body>
